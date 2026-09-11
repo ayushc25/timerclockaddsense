@@ -27,15 +27,32 @@
   function initMobileDrawer() {
     const toggle = document.querySelector('.menu-toggle');
     const drawer = document.querySelector('.mobile-drawer');
+    const header = document.querySelector('.site-header');
     if (!toggle || !drawer) return;
+
+    const hamburgerSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+    const closeSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+
+    const updateDrawerPosition = () => {
+      if (header) {
+        const h = Math.round(header.getBoundingClientRect().height);
+        drawer.style.top = `${h}px`;
+      }
+    };
+
     const close = () => {
       drawer.classList.remove('is-open');
+      toggle.classList.remove('is-active');
       toggle.setAttribute('aria-expanded', 'false');
+      toggle.innerHTML = hamburgerSvg;
       document.body.style.overflow = '';
     };
     const open = () => {
+      updateDrawerPosition();
       drawer.classList.add('is-open');
+      toggle.classList.add('is-active');
       toggle.setAttribute('aria-expanded', 'true');
+      toggle.innerHTML = closeSvg;
       document.body.style.overflow = 'hidden';
     };
     toggle.addEventListener('click', () => {
@@ -44,6 +61,13 @@
     });
     drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900 && drawer.classList.contains('is-open')) {
+        close();
+      } else if (drawer.classList.contains('is-open')) {
+        updateDrawerPosition();
+      }
+    }, { passive: true });
   }
 
   function initFaqAccordions() {
