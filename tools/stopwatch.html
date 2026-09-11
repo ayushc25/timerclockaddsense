@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopwatch — TimerHub</title>
+<meta name="description" content="A precise online stopwatch with millisecond accuracy, lap tracking and a clean lap history. Perfect for training, cooking, coding sessions and timing anything.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/></svg>
+      Stopwatch
+    </span>
+    <h1>A stopwatch built for split-second accuracy</h1>
+    <p class="lede">Start, pause and lap with true millisecond precision. Every lap is logged automatically so you can review your splits the moment you're done.</p>
+    <div class="chip-row" style="justify-content:center; margin-top: var(--space-md);">
+      <span class="badge badge-accent">Fitness</span>
+      <span class="badge badge-accent">Everyday</span>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready</span>
+      </div>
+
+      <div class="timer-display">
+        <div class="timer-digits" data-digits aria-live="off">00:00.00</div>
+        <div class="timer-caption">elapsed time</div>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-secondary" data-reset aria-label="Reset stopwatch" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+        </button>
+        <button class="control-primary" data-start-pause aria-label="Start stopwatch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-start-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="control-secondary" data-lap aria-label="Record lap" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16M20 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg>
+        </button>
+      </div>
+
+      <div class="lap-list" data-lap-list-wrap hidden>
+        <div class="lap-list-head">
+          <span>Lap</span>
+          <span>Split</span>
+          <span>Total</span>
+        </div>
+        <div data-lap-list></div>
+      </div>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" data-sound-toggle aria-label="Lap sound on">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" data-fullscreen-open aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>The TimerHub stopwatch is a no-nonsense elapsed-time tool for anyone who needs to measure how long something actually takes — a workout set, a recipe step, a debugging session, or a rehearsal run-through. It runs entirely in your browser, keeps accurate time even if you switch tabs, and logs every lap so you can review your splits afterward instead of trying to remember them.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Press the center button to start timing. While running, tap the lap button (the icon on the right) to record a split — the clock keeps running and a new row appears at the top of your lap history showing the time since your last lap and the total elapsed time. Tap the center button again to pause, and use the circular reset icon on the left to clear everything and start over. Reset is only available while the stopwatch is paused, so you never accidentally wipe a run in progress.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Centisecond-accurate display, powered by a drift-corrected timing engine rather than a naive interval counter</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Unlimited lap logging with split time and cumulative time for every lap</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Automatic highlighting of your fastest and slowest laps once you've recorded two or more</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Optional soft click on every lap so you can keep your eyes off the screen</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Distraction-free fullscreen mode for presentations, coaching sessions or shared screens</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Keeps counting accurately even if you switch tabs or your laptop sleeps briefly</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p><strong>Sports training.</strong> Time sprints, rest intervals or drill sets and use the lap list to compare each rep at a glance.</p>
+          <p><strong>Cooking.</strong> Track how long a sauce actually needs to reduce or dough needs to proof, lap by lap, across multiple attempts.</p>
+          <p><strong>Task duration tracking.</strong> Start the stopwatch when you begin a task and lap it every time you switch context, giving you an honest record of where your time went.</p>
+          <p><strong>Coding and debugging sessions.</strong> Lap each time you reproduce a bug or complete a test run to see whether your fixes are actually getting faster.</p>
+          <p><strong>Public speaking practice.</strong> Lap at the end of each section of a talk to check your pacing against a rehearsal script.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Laps are ordered most-recent-first so the number you care about right now is always at the top — the row labelled "1" at the bottom of the list is always your very first lap. If you're comparing consistency rather than chasing a single fast time, look at how tightly your splits cluster rather than only at the best/worst highlights. Turn off lap sound in noisy or quiet environments using the speaker icon in the top-right corner of the stopwatch.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="lap-timer.html">Lap Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="interval.html">Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="tally-counter.html">Tally Counter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="timer.html">Countdown Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions about the stopwatch</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How accurate is the TimerHub stopwatch?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>It displays time down to the centisecond (1/100th of a second) and uses timestamp-based calculation rather than counting fixed intervals, so it stays accurate even if the browser tab is in the background or your device briefly slows down.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Are there limits on how many laps I can record?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>No — record as many laps as your session needs. The list scrolls and the most recent lap always appears at the top.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What do the highlighted laps mean?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Once you've recorded two or more laps, your fastest split is highlighted in green and your slowest in red, based on the time between consecutive laps — not the cumulative total.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does the stopwatch keep running if I close the tab or lock my screen?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>It keeps accurate time while the tab stays open, including in the background. Closing the tab or browser will stop the session — TimerHub doesn't currently save an in-progress stopwatch to resume it after the page is closed.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I use this stopwatch on my phone?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The layout, buttons and lap list are all touch-friendly and resize for smaller screens, and fullscreen mode works well for propping your phone up during a workout.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What's the difference between this and the Lap Timer tool?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>They share the same accurate timing core, but the Lap Timer puts your best lap, average lap and lap count front and center — built for people whose main goal is comparing splits, like runners and swimmers, rather than just watching one running clock.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/stopwatch.js"></script>
+</body>
+</html>

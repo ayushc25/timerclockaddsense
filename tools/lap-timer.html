@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lap Timer — TimerHub</title>
+<meta name="description" content="A dedicated lap timer for running splits, swim laps and race practice — track best lap, average lap and full lap history at a glance, accurate to the millisecond.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4 4v16M20 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg>
+      Lap Timer
+    </span>
+    <h1>Track every lap, not just the clock</h1>
+    <p class="lede">Built for runners, swimmers and drivers who care about the splits — see your best lap, your average, and a full history the instant you finish.</p>
+    <div class="chip-row" style="justify-content:center; margin-top: var(--space-md);">
+      <span class="badge badge-accent">Fitness</span>
+      <span class="badge badge-accent">Everyday</span>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready</span>
+      </div>
+
+      <div class="timer-display">
+        <div class="timer-digits" data-digits aria-live="off">00:00.00</div>
+        <div class="timer-caption">elapsed time</div>
+      </div>
+
+      <div class="chip-row" style="justify-content:center;" aria-label="Lap statistics">
+        <span class="badge" data-stat-best>Best Lap —</span>
+        <span class="badge" data-stat-avg>Average —</span>
+        <span class="badge" data-stat-count>Laps 0</span>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-secondary" data-reset aria-label="Reset lap timer" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+        </button>
+        <button class="control-primary" data-start-pause aria-label="Start lap timer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-start-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="control-secondary" data-lap aria-label="Record lap" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16M20 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg>
+        </button>
+      </div>
+
+      <div class="lap-list" data-lap-list-wrap hidden>
+        <div class="lap-list-head">
+          <span>Lap</span>
+          <span>Split</span>
+          <span>Total</span>
+        </div>
+        <div data-lap-list></div>
+      </div>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" data-sound-toggle aria-label="Lap sound on">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" data-fullscreen-open aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>The Lap Timer is built around one idea: the lap list is the point, not an afterthought. Instead of watching a single running clock, you get a live stats row showing your best lap, your average lap, and your lap count, plus a full split history you can scan the moment you finish a session — ideal for track workouts, swim sets, driving laps or any repeating course.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Tap the center button to start, then tap the lap button every time you complete a circuit — a track loop, a pool length, a driving lap. Each tap logs a split and instantly updates your best lap, average lap and lap count above the clock. Pause any time with the center button, and reset (available only while paused) clears the whole session so you can start a fresh set.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Live best-lap, average-lap and lap-count stats that update after every split</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Millisecond-accurate timing with a drift-corrected engine</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Full lap history with split time and cumulative total for every lap</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Automatic best/worst lap highlighting so consistency issues jump out immediately</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fullscreen mode for poolside, trackside or dashboard use</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Optional lap-confirmation click for eyes-free operation</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p><strong>Running splits.</strong> Lap every time you pass the same marker on a track or loop, and compare each lap against your average to judge pacing in real time.</p>
+          <p><strong>Swim laps.</strong> Tap at each wall touch to build an accurate length-by-length record without needing a poolside coach to call splits.</p>
+          <p><strong>Race and driving practice.</strong> Lap at the start/finish line on a circuit to track consistency across a practice session, not just your single fastest lap.</p>
+          <p><strong>Interval-based training.</strong> Use laps to mark the end of each rep or round in structured training, then review the full spread afterward.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Average lap is the most honest signal of overall pace — a single great lap can hide an otherwise inconsistent session, so watch how close your splits sit to the average rather than only chasing the best-lap badge. The lap list shows your most recent lap at the top; scroll down to find lap 1 at the very bottom of the list.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="stopwatch.html">Stopwatch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="interval.html">Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="timer.html">Countdown Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions about the lap timer</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How is this different from the stopwatch?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Both use the same accurate timing engine, but the Lap Timer foregrounds your best lap, average lap and lap count in a stats row above the clock — it's built for people whose main goal is comparing splits rather than watching a single elapsed number.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How is average lap calculated?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>It's the mean of all recorded lap splits (the time between consecutive laps), updated live as you add more laps.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I use this for swimming where laps are very short?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Splits are recorded to the centisecond, so even short pool lengths of 15-30 seconds are captured with plenty of precision.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What do the highlighted best and worst laps mean?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Once you have two or more laps, the fastest split is highlighted in green and the slowest in red, based purely on the time between consecutive laps.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it work well for driving or racing practice?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes — mount your phone in fullscreen mode and tap lap at the start/finish line each time round. The stats row will show your best and average lap for the session automatically.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I mute the lap sound?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes, use the speaker icon in the top-right of the tool to toggle the lap confirmation click on or off at any time.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/lap-timer.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer — TimerHub</title>
+<meta name="description" content="Set an exact countdown for any task — hours, minutes and seconds, or a one-tap preset. A calm progress ring, precise timing and a clear alert when time's up.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M8 2h8M9 22h6M12 6a6 6 0 016 6c0 3-2 5-2 5H8s-2-2-2-5a6 6 0 016-6z"/></svg>
+      Everyday &middot; Productivity
+    </span>
+    <h1 data-label-heading>Countdown Timer</h1>
+    <p class="lede">Set an exact countdown for any task — dial in hours, minutes and seconds, or pick a one-tap preset — and watch it run down on a calm, distraction-free ring.</p>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready to start</span>
+      </div>
+
+      <div class="preset-row" data-preset-row>
+        <button class="chip" data-preset="1">1 min</button>
+        <button class="chip" data-preset="5">5 min</button>
+        <button class="chip" data-preset="10">10 min</button>
+        <button class="chip" data-preset="15">15 min</button>
+        <button class="chip" data-preset="25">25 min</button>
+        <button class="chip" data-preset="30">30 min</button>
+        <button class="chip" data-preset="60">60 min</button>
+      </div>
+
+      <div class="duration-picker" data-duration-picker>
+        <div class="duration-field">
+          <input type="number" inputmode="numeric" min="0" max="23" value="0" aria-label="Hours" data-input="hours">
+          <label>Hours</label>
+        </div>
+        <span class="duration-colon">:</span>
+        <div class="duration-field">
+          <input type="number" inputmode="numeric" min="0" max="59" value="5" aria-label="Minutes" data-input="minutes">
+          <label>Minutes</label>
+        </div>
+        <span class="duration-colon">:</span>
+        <div class="duration-field">
+          <input type="number" inputmode="numeric" min="0" max="59" value="0" aria-label="Seconds" data-input="seconds">
+          <label>Seconds</label>
+        </div>
+      </div>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="ring-track" cx="100" cy="100" r="90"/>
+          <circle class="ring-progress" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0" data-ring/>
+        </svg>
+        <div class="timer-display">
+          <div class="timer-digits" data-digits>05:00</div>
+          <div class="timer-caption" data-caption>Custom countdown</div>
+        </div>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-secondary" aria-label="Remove one minute" data-action="remove">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="control-primary" aria-label="Start countdown" data-action="toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-toggle-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="control-secondary" aria-label="Add one minute" data-action="add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+
+      <div class="timer-adjust-row">
+        <button class="adjust-btn" data-action="reset">Reset</button>
+      </div>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" aria-label="Sound on" data-action="sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-sound-icon><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" aria-label="Enter fullscreen" data-fullscreen-open>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>A countdown built for precision</h2>
+          <p>Most timer apps make you scroll through a wheel or fight a tiny keypad just to set five minutes. The TimerHub Countdown Timer is built the other way around: type the exact hours, minutes and seconds you need, or tap a preset and go. It's the tool to reach for when you know precisely how long something should take — a phone call, a timed test, a load of laundry, a round of trivia — and you want the countdown to be exactly that long, no more, no less.</p>
+          <p>Unlike our general-purpose Timer, this page is built for people who configure before they run: quick presets for the durations people use most, full H:M:S entry for everything else, and mid-run adjustments if the task runs long or wraps up early.</p>
+        </article>
+
+        <article>
+          <h2>How to use the countdown timer</h2>
+          <p>Pick a preset — 1, 5, 10, 15, 25, 30 or 60 minutes — for an instant start, or set your own duration using the hours, minutes and seconds fields. Press the play button to start counting down. While it's running you can pause and resume at any time, add or remove a minute on the fly, mute the completion sound, or expand into fullscreen for a clean, full-screen view with nothing else on screen. When the countdown reaches zero, TimerHub plays a chime and shows a clear on-screen alert — never a jarring browser pop-up.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Full hours / minutes / seconds entry for any duration up to 23:59:59</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Seven one-tap presets: 1, 5, 10, 15, 25, 30 and 60 minutes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Drift-corrected timing engine — stays accurate even in a backgrounded tab</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Add or remove a minute mid-run without losing your place</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Calm progress ring plus large, glanceable digits</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fullscreen focus mode and a mutable completion chime</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use cases</h2>
+          <p><strong>Cooking:</strong> time a simmer, a rest, or a bake down to the second with a preset or a custom duration. <strong>Workouts:</strong> cap a warm-up or a single exercise block without needing a full interval routine. <strong>Exams and timed tests:</strong> give yourself (or a class) an exact, visible time limit with a clean alert at the end. <strong>Presentations:</strong> keep a talk or a Q&amp;A session inside its allotted slot. <strong>Screen-time limits:</strong> set a firm cut-off for a break, a game, or a scrolling session. <strong>Timed breaks:</strong> protect a 10-minute breather between meetings so it doesn't quietly become thirty.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Use the presets for anything round — they're one tap and ready to run instantly. For odd durations (like a 7-minute egg or a 90-second plank), the H:M:S fields take you there in a few keystrokes. If a task is close to done but not quite, tap "Add time" instead of restarting the whole countdown. And if you're sharing a screen or working somewhere loud, switch to fullscreen — it's easier to read from across a room and keeps the countdown as the only thing on screen.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related tools</h4>
+          <ul>
+            <li><a href="timer.html">General Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="pomodoro.html">Pomodoro Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="interval.html">Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="alarm.html">Online Alarm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I set a countdown longer than an hour?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes — the hours field supports up to 23 hours, combined with any minutes and seconds, so you can time anything from a few seconds up to just under a full day.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does the timer keep running if I switch tabs?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The countdown is driven by real timestamps rather than a simple tick counter, so it stays accurate even if the browser throttles a background tab — when you come back, the time shown is correct.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I add or remove time while it's running?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The plus and minus buttons add or remove one minute at any point, whether the countdown is running or paused. Time can never go below zero.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens when the countdown finishes?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>TimerHub plays a gentle chime and shows an on-screen "Countdown complete" notice — never a browser alert box that can freeze the page. You can immediately start again with the same or a new duration.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How is this different from the general Timer tool?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>This page is built around fast, precise setup — seven presets plus full hours/minutes/seconds entry — for people who know exactly how long they need. The general Timer is a simpler, more minimal single-duration tool.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I mute the sound?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Use the speaker icon above the controls to mute or unmute the completion chime at any time; your preference is remembered on this device.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/countdown.js"></script>
+</body>
+</html>

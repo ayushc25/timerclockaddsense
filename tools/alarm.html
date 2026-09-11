@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Alarm Clock — Set a Wake or Reminder Time | TimerHub</title>
+<meta name="description" content="A free online alarm clock. Pick a time, choose a tone, and TimerHub will ring right in your browser tab — with a clear countdown and an honest look at browser alarm limitations.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <span class="badge badge-accent">Everyday</span>
+    </span>
+    <h1>Online Alarm</h1>
+    <p class="lede">Set a precise wake-up, reminder or nap alarm right in your browser. Choose a time, pick a tone, and TimerHub will ring for you — no app, no account, no installs.</p>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready">
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" id="sound-toggle" aria-label="Sound on">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" id="fullscreen-toggle" data-fullscreen-open aria-label="Enter fullscreen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-label>No alarm set</span>
+      </div>
+
+      <div data-clock-readout style="font-family: var(--font-display); font-size: var(--fs-md); color: var(--color-ink-muted);">--:--:--</div>
+
+      <!-- SET state: time picker -->
+      <div data-set-view>
+        <div class="field" style="align-items:center; text-align:center;">
+          <label for="alarm-time">Alarm time</label>
+          <input type="time" class="input" id="alarm-time" style="font-family: var(--font-display); font-size:1.8rem; text-align:center;">
+        </div>
+        <p data-fire-preview style="text-align:center; font-size: var(--fs-sm); color: var(--color-ink-muted); margin-top: var(--space-sm);">Set a time above to see when the alarm will ring.</p>
+
+        <div class="field" style="margin-top: var(--space-lg);">
+          <label id="tone-label">Alarm sound</label>
+          <div class="chip-row" role="group" aria-labelledby="tone-label" data-tone-row>
+            <button class="chip is-active" data-tone="classic" type="button">Classic</button>
+            <button class="chip" data-tone="gentle" type="button">Gentle</button>
+            <button class="chip" data-tone="urgent" type="button">Urgent</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARMED / RINGING state: countdown -->
+      <div data-armed-view style="display:none; text-align:center;">
+        <div class="timer-display">
+          <div class="timer-digits" data-digits>00:00:00</div>
+          <div class="timer-caption" data-caption>until alarm</div>
+        </div>
+      </div>
+
+      <div class="badge" style="max-width: 46ch; text-align:center; margin-top: var(--space-sm);">
+        This alarm only works while this browser tab stays open. Closing the tab, closing the browser, or letting your device fully lock for a long time will cancel or delay it.
+      </div>
+
+      <div class="timer-controls" data-controls-row>
+        <button class="btn btn-accent btn-lg" id="btn-arm">Activate Alarm</button>
+      </div>
+
+      <div data-stop-row style="display:none;">
+        <button class="btn btn-primary btn-lg" id="btn-stop-alarm">Stop Alarm</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>The Online Alarm turns any browser tab into a simple wake-up, nap or reminder alarm. There's nothing to install and nothing to configure beyond picking a time — set it, leave the tab open, and TimerHub will ring at the exact moment you chose, with a clear on-screen countdown the whole way there.</p>
+          <p>It's built for the moments where a full phone alarm app is overkill: a quick reminder while you're already at your desk, a nap timer on your laptop, or a "wake me up" alarm while you work with headphones in. If you need a precise interval instead of a fixed clock time, our <a href="countdown.html">Countdown Timer</a> or <a href="timer.html">Timer</a> may suit you better.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Pick the time you want the alarm to ring using the time field — if that time has already passed today, TimerHub automatically schedules it for tomorrow and tells you so directly above the picker (for example, "Rings tomorrow at 6:30 AM"). Choose an alarm tone — Classic, Gentle or Urgent — then press <strong>Activate Alarm</strong>. The card switches to a live countdown showing exactly how much time is left. When the countdown reaches zero, the alarm rings and a prominent <strong>Stop Alarm</strong> button appears — tap it to silence the alarm and reset. You can cancel an armed alarm at any time with the Cancel Alarm button instead of waiting for it to ring.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Set any time of day — TimerHub works out today vs. tomorrow automatically</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Live, self-correcting countdown to the exact alarm moment</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Three alarm tone characters — Classic, Gentle and Urgent</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>One-tap cancel while armed, and a clear Stop Alarm control once it rings</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Honest, visible notice about the tab-open limitation of browser alarms</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Nothing to install and nothing sent to a server — it all runs locally</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p>People use the Online Alarm to wake themselves up from a short nap at their desk, to set a reminder to check on something cooking on the stove, to give themselves a hard stop for a study session, or as a simple medication reminder while they're already sitting at the computer. It's also handy as a backup alarm alongside your phone when you want a second, independent way to be reminded of something at a specific time.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Because this alarm depends on the tab staying open, it works best as a desk or desktop companion rather than a replacement for your phone's alarm when you're away from your computer. Keep the tab pinned so you don't accidentally close it, and consider using the Gentle tone for naps and the Urgent tone for anything you really can't afford to sleep through. If you just need to know when a fixed amount of time has passed rather than a specific clock time, the <a href="timer.html">Timer</a> is a better fit.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="timer.html">Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="countdown.html">Countdown Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="digital-clock.html">Digital Clock <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="meeting-timer.html">Meeting Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do I need to keep the browser tab open for the alarm to ring?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. This is a genuine limitation of any browser-based alarm: the countdown and the alarm sound only run while this tab is open in your browser. If you close the tab, close the browser, or the browser is force-quit, the alarm is cancelled and will not ring. Keep the tab open (it can be in the background) until the alarm fires.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it work on phone browsers?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>It works in mobile browsers the same way it does on desktop, as long as the tab stays open and active. Mobile operating systems are more aggressive about suspending background tabs than desktops are, so this alarm is more reliable on a phone if the screen stays on and the browser stays in the foreground.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can it wake up a locked phone?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Generally, no. When a phone is locked, mobile browsers are typically throttled or fully suspended by the operating system to save battery, which means the countdown can pause and the alarm sound may not play at all. For anything you truly can't miss while your phone is locked or asleep, use your phone's built-in alarm clock app instead — reserve this tool for times you're actively at your computer or your phone screen is on.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens if I set a time that's already passed today?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>TimerHub automatically schedules the alarm for the next occurrence of that time, meaning tomorrow. The preview text above the time field always tells you plainly whether the alarm will ring "today" or "tomorrow" before you activate it.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I change the alarm tone?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Choose between Classic (a bright repeating tone), Gentle (a soft, spaced-out bell, kinder for naps) and Urgent (a faster, more insistent pattern) before you activate the alarm. The tone can't be changed once the alarm is armed — cancel it and set it again to switch.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I cancel an alarm before it rings?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. While the alarm is armed and counting down, the button changes to Cancel Alarm — one tap disarms it and returns you to the time picker with no sound played.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/alarm.js"></script>
+</body>
+</html>

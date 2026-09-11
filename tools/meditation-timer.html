@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meditation Timer — TimerHub</title>
+<meta name="description" content="A calm, minimal meditation timer with a gentle preparation countdown, soft bell at start and finish, and a distraction-free fullscreen view for your practice.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+<style>
+  /* Page-scoped, additive-only calming touches for the meditation timer.
+     No new colors or fonts — just softer spacing, gentler motion and a
+     narrower measure for copy, layered on top of the shared design system. */
+  .meditation-page .timer-stage {
+    padding: var(--space-2xl) var(--space-xl) calc(var(--space-2xl) + var(--space-md));
+    gap: calc(var(--space-xl) + var(--space-sm));
+  }
+  .meditation-page .content-main { max-width: 62ch; }
+  .meditation-page .content-main p { line-height: 1.75; }
+  .meditation-page [data-caption],
+  .meditation-page .timer-digits {
+    transition: opacity var(--dur-med) var(--ease-out);
+  }
+  .meditation-page .chip-row { justify-content: center; }
+  @media (prefers-reduced-motion: reduce) {
+    .meditation-page .timer-digits,
+    .meditation-page [data-caption] { transition: none; }
+  }
+</style>
+</head>
+<body class="tool-page meditation-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+      Focus
+    </span>
+    <h1>A quieter kind of timer</h1>
+    <p class="lede">Pick a length, settle in during a short preparation moment, and let a soft bell mark the start and end of your session. No progress bars fighting for attention — just time, and a gentle sound when it's done.</p>
+    <div class="chip-row" style="justify-content:center; margin-top: var(--space-md);">
+      <span class="badge badge-accent">Focus</span>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready when you are</span>
+      </div>
+
+      <div class="preset-row" data-preset-row>
+        <button class="chip" data-minutes="5">5 min</button>
+        <button class="chip" data-minutes="10">10 min</button>
+        <button class="chip" data-minutes="15">15 min</button>
+        <button class="chip is-active" data-minutes="20">20 min</button>
+        <button class="chip" data-minutes="30">30 min</button>
+        <button class="chip" data-minutes="45">45 min</button>
+        <button class="chip" data-minutes="60">60 min</button>
+      </div>
+
+      <div class="duration-picker" data-custom-duration>
+        <div class="duration-field">
+          <input type="number" inputmode="numeric" min="1" max="240" value="20" aria-label="Custom session length in minutes" data-input="minutes">
+          <label>Custom minutes</label>
+        </div>
+      </div>
+
+      <label class="field" style="flex-direction:row; align-items:center; gap: var(--space-sm); justify-content:center;">
+        <input type="checkbox" data-input="prep-toggle" checked style="width:18px;height:18px;">
+        <span>10-second settling moment before the session begins</span>
+      </label>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="ring-track" cx="100" cy="100" r="90"/>
+          <circle class="ring-progress" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0" data-ring/>
+        </svg>
+        <div class="timer-display">
+          <div class="timer-digits" data-digits>20:00</div>
+          <div class="timer-caption" data-caption>minutes of stillness</div>
+        </div>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-primary" aria-label="Begin session" data-action="toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-toggle-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+
+      <div class="timer-adjust-row" data-reset-row style="display:none;">
+        <button class="adjust-btn" data-action="reset">Reset</button>
+      </div>
+
+      <button class="btn btn-primary btn-lg" data-action="begin-another" hidden>Begin Another Session</button>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" aria-label="Sound on" data-action="sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-sound-icon><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" aria-label="Enter fullscreen" data-fullscreen-open>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>Most timer apps are built to create urgency. A meditation session needs the opposite — a tool that gets out of the way. The TimerHub Meditation Timer strips things back to what actually matters for a sitting practice: a duration, a moment to settle before the clock starts, a soft bell to mark the beginning and end, and nothing else competing for your attention in between.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Choose a session length from the presets, or enter a custom number of minutes. If the settling toggle is on, pressing start begins a brief 10-second preparation countdown with a calm "Settle in..." caption — this is your moment to find a comfortable position before the timer proper begins. A soft bell marks the true start of your session, and the countdown then runs silently until a second bell marks its end. Pause and resume at any time if you're interrupted, and use fullscreen for a completely uncluttered view.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Seven duration presets from 5 to 60 minutes, plus any custom length</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Optional 10-second settling moment before the timer begins, with a calm caption</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Soft bell tone — not a harsh alarm — at both the start and end of your sitting</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>A single, minimal control set — start, pause, reset — with nothing else to think about</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Drift-corrected timing that stays accurate even if your screen dims or you switch apps</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fullscreen focus view for a genuinely distraction-free sit</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p><strong>Mindfulness practice.</strong> A fixed, unobtrusive sitting length so you're not wondering how much time is left. <strong>Breathing exercises.</strong> Time a box-breathing or extended-exhale practice without a jarring end signal. <strong>Guided or silent meditation.</strong> Use it alongside a guided recording, or in complete silence with just the two bells. <strong>Short mental resets between meetings.</strong> A five- or ten-minute reset that gives you a clean break between calls. <strong>Sleep wind-down.</strong> A longer, gentle session to settle your mind before bed.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Find a quiet space and, where possible, silence notifications on the device you're using — the timer can handle the counting, but it can't stop other apps from interrupting you. If you're new to meditation, try starting with just 5 minutes; consistency matters far more than length when you're building the habit. Keep the settling countdown on if you tend to rush into sitting down — those ten seconds make a real difference in how present you feel once the bell rings.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="timer.html">Countdown Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="pomodoro.html">Pomodoro Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="metronome.html">Metronome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="digital-clock.html">Digital Clock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions about the meditation timer</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What does the preparation countdown do?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>When enabled, pressing start begins a short 10-second countdown with a "Settle in..." caption before your session officially begins — a moment to get comfortable and close your eyes before the clock, and the first bell, mark the real start.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I turn off the sounds and meditate in silence?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The speaker icon mutes both the start and end bell — the timer still runs and completes normally, just with a visual cue only.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Why a bell instead of a louder alarm?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>A meditation session should end the way it began — calmly. We use a soft, resonant bell tone rather than the sharper completion chime used on our other timers, so the end of your sit doesn't feel jarring.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I set a custom session length?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes — use the custom minutes field for any length beyond the seven presets, from a one-minute check-in to a multi-hour sit.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does the timer keep accurate time if my screen locks?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Timing is based on real timestamps rather than a simple tick counter, so the session stays accurate even if your device dims its screen or you briefly switch apps.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I use this for guided meditation instead of silent sitting?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes — set the timer to match the length of a guided recording and mute the bells if you'd rather the recording provide its own cues, or leave them on as a gentle backup signal.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/meditation-timer.js"></script>
+</body>
+</html>

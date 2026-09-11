@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomodoro Timer — TimerHub</title>
+<meta name="description" content="A calm, dedicated Pomodoro timer with 25-minute focus sessions, short and long breaks, session tracking and fully customizable durations — free, no sign-up.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
+      Productivity &middot; Focus
+    </span>
+    <h1>Pomodoro Timer</h1>
+    <p class="lede">Structured focus and break cycles to help you do deep work without burning out — 25 minutes on, 5 minutes off, a longer break every four sessions.</p>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="ready" data-phase="work">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready to focus</span>
+      </div>
+
+      <span class="interval-phase-badge" data-phase-badge>Focus</span>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="ring-track" cx="100" cy="100" r="90"/>
+          <circle class="ring-progress" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0" data-ring/>
+        </svg>
+        <div class="timer-display">
+          <div class="timer-digits" data-digits>25:00</div>
+          <div class="timer-caption" data-caption>Focus session</div>
+        </div>
+      </div>
+
+      <div class="interval-meta-row">
+        <span>Session <strong data-session-current>1</strong> of <strong data-session-total>4</strong></span>
+        <span>Next: <strong data-next-phase>Short Break</strong></span>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-secondary" aria-label="Skip to next phase" data-action="skip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l10 8-10 8V4zM19 5v14"/></svg>
+        </button>
+        <button class="control-primary" aria-label="Start Pomodoro" data-action="toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-toggle-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="control-secondary" aria-label="Reset cycle" data-action="reset">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg>
+        </button>
+      </div>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" aria-label="Sound on" data-action="sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-sound-icon><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" aria-label="Enter fullscreen" data-fullscreen-open>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container">
+    <div class="card" style="padding: var(--space-xl); margin-block: var(--space-lg);">
+      <h3 style="margin-bottom: var(--space-md);">Settings</h3>
+      <p class="hint" style="font-size: var(--fs-xs); color: var(--color-ink-muted); margin-bottom: var(--space-lg);">Changes apply the next time a session starts — they won't interrupt a session already running.</p>
+      <div class="form-row-2" style="display:grid; grid-template-columns:repeat(4,1fr); gap: var(--space-lg);">
+        <div class="field">
+          <label for="set-focus">Focus (min)</label>
+          <input class="input" type="number" id="set-focus" min="1" max="120" value="25" data-setting="focus">
+        </div>
+        <div class="field">
+          <label for="set-short">Short break (min)</label>
+          <input class="input" type="number" id="set-short" min="1" max="60" value="5" data-setting="short">
+        </div>
+        <div class="field">
+          <label for="set-long">Long break (min)</label>
+          <input class="input" type="number" id="set-long" min="1" max="90" value="15" data-setting="long">
+        </div>
+        <div class="field">
+          <label for="set-count">Sessions before long break</label>
+          <input class="input" type="number" id="set-count" min="2" max="8" value="4" data-setting="count">
+        </div>
+      </div>
+      <label style="display:flex; align-items:center; gap: var(--space-sm); margin-top: var(--space-lg); font-size: var(--fs-sm); font-weight: 600; color: var(--color-ink-soft);">
+        <input type="checkbox" data-setting="pause-auto-advance">
+        Pause auto-advance (require a tap to start each next phase)
+      </label>
+    </div>
+  </section>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>What is the Pomodoro Technique?</h2>
+          <p>The Pomodoro Technique is a time-management method built around short, focused bursts of work separated by real breaks: 25 minutes of undistracted focus, then a 5-minute break, repeated four times before a longer 15-minute break resets the cycle. It was developed in the late 1980s by Francesco Cirillo, who used a tomato-shaped kitchen timer (pomodoro is Italian for tomato) to time his study sessions — the name stuck.</p>
+          <p>The idea is simple but effective: a fixed, visible countdown creates urgency and removes the temptation to "just check one more thing," while the built-in breaks prevent the burnout that comes from working in long, undefined stretches.</p>
+        </article>
+
+        <article>
+          <h2>How to use the Pomodoro timer</h2>
+          <p>Press start to begin a 25-minute focus session — the ring and phase badge above the timer make it obvious at a glance whether you're in a focus session or a break. When a session ends, TimerHub plays a soft transition chime and automatically moves to the next phase: short break, then more focus, and a long break after every fourth focus session. The meta row shows exactly where you are ("Session 2 of 4") and what's coming next. Use Skip if you want to move on early, Reset to return to session one, and the settings panel below the timer to change how long each phase lasts.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Standard 25/5/15 Pomodoro structure, fully customizable</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Automatic phase transitions with a gentle chime, or manual advance if you prefer</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Live session count and a clear "next phase" hint</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Customizable focus, short break and long break durations</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Adjustable number of sessions before a long break</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fullscreen focus mode, mutable sound, drift-corrected timing</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use cases</h2>
+          <p><strong>Studying:</strong> break dense material into focused chunks with real rest between them, so concentration doesn't decay across a long session. <strong>Deep work:</strong> protect a block of time from Slack, email and notifications by giving yourself a visible, ticking reason to stay off them. <strong>Writing:</strong> use the timer to get past the blank-page resistance — commit to 25 minutes, not "finishing the whole thing." <strong>ADHD-friendly work sessions:</strong> the short, clearly bounded intervals make it easier to start and easier to stop, both of which can be hard without an external cue. <strong>Avoiding burnout:</strong> the built-in breaks aren't optional extras — they're part of the technique, and skipping them regularly is what leads to the afternoon crash.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Silence notifications on your phone and computer before a focus session starts — the whole point is one uninterrupted thing.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Take breaks away from your screen — stand up, stretch, look out a window. Scrolling a phone doesn't count as rest.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>If 25 minutes feels too short or too long for your work, adjust it in settings — the technique works at other lengths too, as long as focus and break stay proportional.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Write down what you plan to do in the next session before you start it — it removes the "what should I work on" decision from inside the timer.</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related tools</h4>
+          <ul>
+            <li><a href="timer.html">General Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="interval.html">Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="meeting-timer.html">Meeting Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="meditation-timer.html">Meditation Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Why 25 minutes?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>25 minutes is the original interval chosen by the technique's creator, Francesco Cirillo — long enough to make real progress on a task, short enough that staying focused doesn't feel like an ordeal. It's a starting point, not a rule.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I change the durations?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Use the settings panel below the timer to set your own focus, short break and long break lengths, and how many focus sessions happen before a long break. Changes take effect the next time a phase starts.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens after 4 sessions?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>After the fourth focus session, TimerHub gives you a longer break (15 minutes by default) instead of a short one, then starts a new cycle back at session one. You'll hear a completion chime and see a toast marking the full cycle.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it work if I close the tab?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>The timer runs in your browser tab, so closing it stops the countdown — it isn't a background service. Switching to another tab or minimizing the window is fine; the timing stays accurate because it's based on real timestamps, not a simple tick counter.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it move to the next phase automatically?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>By default, yes — focus flows into break and back again automatically with a short chime at each change. If you'd rather confirm each transition yourself, turn on "Pause auto-advance" in settings.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I skip a session or start over?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The skip button jumps straight to the next phase, and reset returns the whole cycle to session one, focus phase, with the current settings.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/pomodoro.js"></script>
+</body>
+</html>

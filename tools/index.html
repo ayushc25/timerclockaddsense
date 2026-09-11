@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Time Tools — TimerHub</title>
+<meta name="description" content="Browse every TimerHub tool in one place — timers, stopwatches, alarms, interval and Pomodoro timers, a chess clock, metronome and more. Filter by category or search to find exactly what you need.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+      13 dedicated tools
+    </span>
+    <h1>All Time Tools</h1>
+    <p class="lede">Everything you need to measure, focus, train and manage your time.</p>
+  </section>
+
+  <section class="container">
+    <div class="filters-bar">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input type="search" class="input" id="tool-search" placeholder="Search tools — e.g. &quot;interval&quot; or &quot;alarm&quot;" aria-label="Search tools">
+      </div>
+      <div class="chip-row" id="category-chips" role="group" aria-label="Filter by category">
+        <button class="chip is-active" data-category="all">All</button>
+        <button class="chip" data-category="productivity">Productivity</button>
+        <button class="chip" data-category="fitness">Fitness</button>
+        <button class="chip" data-category="focus">Focus</button>
+        <button class="chip" data-category="everyday">Everyday</button>
+        <button class="chip" data-category="games">Games</button>
+        <button class="chip" data-category="music">Music</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-block: 0 var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="tools-grid" id="tools-grid">
+
+      <a href="timer.html" class="card tool-card reveal" data-tool-card data-categories="productivity focus everyday" data-name="Timer" data-desc="The simple, flexible general-purpose timer for anything you need to count down.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 2v2"/></svg></div>
+        <h3>Timer</h3>
+        <p>Set any duration in seconds and count down with presets, a calm ring and a clear chime.</p>
+        <span class="card-cta">Open Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="stopwatch.html" class="card tool-card reveal" data-tool-card data-categories="fitness" data-name="Stopwatch" data-desc="Precise elapsed-time tracking with lap history and millisecond accuracy.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 2v2"/></svg></div>
+        <h3>Stopwatch</h3>
+        <p>Precise elapsed-time tracking with lap history and millisecond accuracy.</p>
+        <span class="card-cta">Open Stopwatch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="countdown.html" class="card tool-card reveal" data-tool-card data-categories="productivity everyday" data-name="Countdown Timer" data-desc="Set any duration and count down with presets, alerts and a calm progress ring.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2h8M9 22h6M12 6a6 6 0 016 6c0 3-2 5-2 5H8s-2-2-2-5a6 6 0 016-6z"/></svg></div>
+        <h3>Countdown Timer</h3>
+        <p>Set any duration and count down with presets, alerts and a calm progress ring.</p>
+        <span class="card-cta">Open Countdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="alarm.html" class="card tool-card reveal" data-tool-card data-categories="everyday" data-name="Online Alarm" data-desc="Set a precise wake or reminder time with a gentle, customizable tone.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
+        <h3>Online Alarm</h3>
+        <p>Set a precise wake or reminder time with a gentle, customizable tone.</p>
+        <span class="card-cta">Open Alarm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="interval.html" class="card tool-card reveal" data-tool-card data-categories="fitness" data-name="Interval Timer" data-desc="Work/rest rounds built for HIIT, circuit training and any repeating workout.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 2l4 4-4 4M21 6H8a5 5 0 000 10h13M7 22l-4-4 4-4M3 18h13a5 5 0 000-10"/></svg></div>
+        <h3>Interval Timer</h3>
+        <p>Work/rest rounds built for HIIT, circuit training and any repeating workout.</p>
+        <span class="card-cta">Open Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="pomodoro.html" class="card tool-card reveal" data-tool-card data-categories="productivity focus" data-name="Pomodoro" data-desc="Structured focus and break cycles to help you do deep work without burning out.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg></div>
+        <h3>Pomodoro</h3>
+        <p>Structured focus and break cycles to help you do deep work without burning out.</p>
+        <span class="card-cta">Open Pomodoro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="meeting-timer.html" class="card tool-card reveal" data-tool-card data-categories="productivity" data-name="Meeting Timer" data-desc="Keep meetings and agenda items on schedule with a visible shared countdown.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/><rect x="9" y="19" width="6" height="3" rx="1"/></svg></div>
+        <h3>Meeting Timer</h3>
+        <p>Keep meetings and agenda items on schedule with a visible shared countdown.</p>
+        <span class="card-cta">Open Meeting Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="chess-clock.html" class="card tool-card reveal" data-tool-card data-categories="games" data-name="Chess Clock" data-desc="A proper two-player clock with increments, tap-to-switch and flag detection.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l1.5 3H15l-1 2 2 2-2 1 1 3H9l1-3-2-1 2-2-1-2h1.5z"/><path d="M7 22h10M8 22v-3h8v3"/></svg></div>
+        <h3>Chess Clock</h3>
+        <p>A proper two-player clock with increments, tap-to-switch and flag detection.</p>
+        <span class="card-cta">Open Chess Clock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="meditation-timer.html" class="card tool-card reveal" data-tool-card data-categories="focus" data-name="Meditation Timer" data-desc="A quiet countdown with gentle start and end bells, built for sitting practice.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c0 5-4 5-4 9a4 4 0 008 0c0-4-4-4-4-9z"/><path d="M4 21c2-3 5-4 8-4s6 1 8 4"/></svg></div>
+        <h3>Meditation Timer</h3>
+        <p>A quiet countdown with gentle start and end bells, built for sitting practice.</p>
+        <span class="card-cta">Open Meditation Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="metronome.html" class="card tool-card reveal" data-tool-card data-categories="music" data-name="Metronome" data-desc="A precise, adjustable-tempo click track for practicing and rehearsing music.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 21h8L13 4h-2z"/><path d="M12 8l3 11"/><circle cx="12" cy="6" r="1.4"/></svg></div>
+        <h3>Metronome</h3>
+        <p>A precise, adjustable-tempo click track for practicing and rehearsing music.</p>
+        <span class="card-cta">Open Metronome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="tally-counter.html" class="card tool-card reveal" data-tool-card data-categories="fitness everyday" data-name="Tally Counter" data-desc="A big, tappable counter for reps, laps, guests, or anything you need to count.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4v16M10 4v16M14 5l4 15" stroke-linecap="round"/></svg></div>
+        <h3>Tally Counter</h3>
+        <p>A big, tappable counter for reps, laps, guests, or anything you need to count.</p>
+        <span class="card-cta">Open Tally Counter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="lap-timer.html" class="card tool-card reveal" data-tool-card data-categories="fitness everyday" data-name="Lap Timer" data-desc="A stopwatch built for recording and comparing lap and split times.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="14" r="7"/><path d="M11 10v4l2 2M9 2h4"/><path d="M18 6l2.5-1v4L18 8" stroke-linejoin="round"/></svg></div>
+        <h3>Lap Timer</h3>
+        <p>A stopwatch built for recording and comparing lap and split times.</p>
+        <span class="card-cta">Open Lap Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a href="digital-clock.html" class="card tool-card reveal" data-tool-card data-categories="everyday" data-name="Digital Clock" data-desc="A clean, full-screen digital clock with date, ideal for desks and displays.">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="9" cy="12" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="0.9" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Digital Clock</h3>
+        <p>A clean, full-screen digital clock with date, ideal for desks and displays.</p>
+        <span class="card-cta">Open Digital Clock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+    </div>
+
+    <div class="empty-state" id="tools-empty" style="display:none; text-align:center; padding: var(--space-3xl) var(--space-lg);">
+      <p style="font-size: var(--fs-lg); font-weight: 700; margin-bottom: var(--space-xs);">No tools match your search</p>
+      <p class="lede" style="margin-inline:auto;">Try a different keyword or clear the category filter — or explore all 13 tools by resetting your search.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/tools-index.js"></script>
+</body>
+</html>

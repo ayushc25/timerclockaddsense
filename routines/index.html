@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Routines — TimerHub</title>
+<meta name="description" content="Pre-built multi-stage timer routines for study, fitness, deep work, cooking, meditation and presentations. Pick one and press Start Routine — every stage runs automatically.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+<link rel="stylesheet" href="../css/routines.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html">Tools</a>
+        <a href="../routines/index.html" aria-current="page">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <!-- ROUTINE GRID VIEW -->
+  <section class="page-header container" data-routines-view>
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17 2l4 4-4 4M21 6H8a5 5 0 000 10h13M7 22l-4-4 4-4M3 18h13a5 5 0 000-10"/></svg>
+      Smart Routines
+    </span>
+    <h1>Chain your timers into one routine</h1>
+    <p class="lede">A routine is a pre-built sequence of timer stages that runs automatically, one after another — so instead of starting a Focus timer, watching it finish, then manually starting a Break timer, and repeating that all afternoon, you press Start Routine once and TimerHub carries you through every stage, with a chime at each transition.</p>
+  </section>
+
+  <section class="container" data-routines-view>
+    <div class="filters-bar">
+      <div class="chip-row" role="list" aria-label="Filter routines by category" data-category-chips>
+        <button class="chip is-active" data-category="all" type="button">All</button>
+        <button class="chip" data-category="Study" type="button">Study</button>
+        <button class="chip" data-category="Fitness" type="button">Fitness</button>
+        <button class="chip" data-category="Productivity" type="button">Productivity</button>
+        <button class="chip" data-category="Cooking" type="button">Cooking</button>
+        <button class="chip" data-category="Meditation" type="button">Meditation</button>
+        <button class="chip" data-category="Presentation" type="button">Presentation</button>
+      </div>
+    </div>
+
+    <div class="tools-grid" data-routine-grid></div>
+  </section>
+
+  <!-- ROUTINE PLAYER VIEW (hidden until a routine is started) -->
+  <section class="container" data-player-view hidden>
+    <div class="routine-player-head">
+      <div>
+        <span class="eyebrow" data-player-category>Routine</span>
+        <h2 data-player-title>Routine name</h2>
+      </div>
+      <button class="btn btn-secondary" data-action="exit-routine">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Exit Routine
+      </button>
+    </div>
+
+    <div class="timer-stage" data-timer-stage data-state="ready" data-phase="work">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Ready to start</span>
+      </div>
+
+      <span class="interval-phase-badge" data-player-phase-badge>Focus</span>
+
+      <div class="interval-meta-row">
+        <span>Current: <strong data-meta-current>Focus</strong></span>
+        <span>Next: <strong data-meta-next>Break</strong></span>
+        <span data-meta-stage-count>Stage 1 of 6</span>
+      </div>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="ring-track" cx="100" cy="100" r="90"/>
+          <circle class="ring-progress" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0" data-ring/>
+        </svg>
+        <div class="timer-display">
+          <div class="timer-digits" data-digits>25:00</div>
+          <div class="timer-caption" data-caption>of this stage</div>
+        </div>
+      </div>
+
+      <div class="timer-controls">
+        <button class="control-secondary" aria-label="Skip to next stage" data-action="skip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l10 8-10 8V4zM19 5v14"/></svg>
+        </button>
+        <button class="control-primary" aria-label="Start routine" data-action="toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-toggle-icon><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="control-secondary" aria-label="Stop routine" data-action="stop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+        </button>
+      </div>
+
+      <div class="routine-timeline" data-player-timeline></div>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" aria-label="Sound on" data-action="sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-sound-icon><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" aria-label="Enter fullscreen" data-fullscreen-open>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);" data-routines-view>
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container" data-routines-view>
+    <div class="content-layout">
+      <div class="content-main" style="max-width:100%;">
+        <article>
+          <h2>Why chain timers into a routine</h2>
+          <p>A single timer is great for a single task, but most of what we do is a sequence: three rounds of focus and break, a sear followed by a long simmer, an opening followed by the main content of a talk. Starting each of those stages by hand works, but it also means you're the one who has to notice when a stage ends, remember what comes next, and tap start again — which is exactly the kind of low-value attention-switching a timer is supposed to remove from your day.</p>
+          <p>Routines fix that by encoding the whole sequence once. Press Start Routine and TimerHub becomes the thing keeping track of what's next, playing a distinct transition chime as each stage hands off to the following one, and a longer completion chime when the whole routine finishes. You stay in the work — the studying, the training, the cooking, the rehearsing — instead of in the timer app.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" data-routines-view>
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What exactly is a routine, versus a single timer?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>A single timer runs one duration once. A routine is a pre-built sequence of several timer stages — for example six alternating focus and break blocks — that run back-to-back automatically, with TimerHub handling every transition for you.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I skip a stage or pause partway through a routine?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The player has a pause/resume control and a skip button that jumps straight to the next stage, so you can cut a warm-up short or extend a break without restarting the whole routine.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens when a stage finishes?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>TimerHub plays a short transition chime and moves straight into the next stage — no tapping required. When the final stage of the routine ends, you'll hear a longer completion chime and see an on-screen "Routine complete" notice.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do routines stay accurate if I switch tabs mid-session?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Every stage runs on the same drift-corrected timing engine used across TimerHub, so the countdown stays correct even if the browser throttles a background tab.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I build my own routine?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>The routines here are curated, ready-to-run sequences for the most common needs. If none of them fit exactly, the Interval Timer and Pomodoro tools under Tools let you configure your own custom stage lengths and round counts.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/routines.js"></script>
+</body>
+</html>

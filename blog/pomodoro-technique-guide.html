@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Pomodoro Technique Actually Works — TimerHub Journal</title>
+<meta name="description" content="A practical look at the Pomodoro Technique's history, why 25-minute sessions work, when to break the rules, and how to use TimerHub's Pomodoro tool well.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html" aria-current="page">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="badge badge-accent">Productivity</span>
+    <h1>How the Pomodoro Technique Actually Works (and When to Break the Rules)</h1>
+    <p class="blog-meta">September 2, 2026 · 7 min read</p>
+  </section>
+
+  <section class="section container">
+    <div class="blog-post-body">
+      <p>The Pomodoro Technique is one of the few productivity methods that has survived decades of trend cycles largely unchanged. It was developed in the late 1980s by Francesco Cirillo, then a university student struggling to stay focused while studying. He committed to just ten minutes of distraction-free work, timed with a kitchen timer shaped like a tomato — <em>pomodoro</em> in Italian — and the method grew from there into the 25-minute work interval most people know today.</p>
+
+      <h2>The idea behind the interval</h2>
+      <p>The technique's core insight isn't really about the number 25. It's about converting an open-ended, anxiety-inducing task ("write the report") into a small, bounded commitment ("write for one interval"). A visible countdown removes the two biggest obstacles to starting difficult work: the fear that it will take forever, and the temptation to multitask instead of committing fully. Because the interval is short and finite, starting feels low-risk, and because it's timed, drifting into email or messaging feels like a visible violation of a promise you made to yourself.</p>
+      <p>The short break that follows each interval matters just as much as the work period. It gives your attention a genuine reset rather than a gradual decay, and it creates a rhythm — work, rest, work, rest — that's far easier to sustain across a full day than a single unbroken block of effort.</p>
+
+      <h2>How TimerHub's Pomodoro tool implements it</h2>
+      <p>The <a href="../tools/pomodoro.html">Pomodoro tool</a> runs the classic structure by default: a 25-minute focus session, a 5-minute short break, and a longer 15 to 30 minute break after every four completed sessions. Each transition is handled automatically with a distinct sound cue, so you always know whether you're in a work interval or a break without having to check. Session counts are tracked for the day, giving you a simple, honest record of how many full cycles you actually completed — which is often a more useful signal than hours logged.</p>
+      <p>Because the tool uses a drift-corrected timing engine rather than a naive countdown, the displayed time stays accurate even if you switch tabs or your laptop goes to sleep briefly — a common failure point in simpler timer implementations.</p>
+
+      <h2>Adapting session length to the work</h2>
+      <p>Twenty-five minutes is a starting point, not a law. Cirillo himself treated the interval as adjustable once you understood why it worked. A few practical adjustments worth trying:</p>
+      <p>If you do deep technical or creative work that takes real time to enter — writing, coding, design — a 40 to 50 minute session with a slightly longer 10-minute break can reduce the cost of re-entering flow after every interruption. If your work is naturally choppy — email triage, admin, customer support — shorter 15 to 20 minute sessions keep urgency high without the interval feeling like an arbitrary interruption of something you were about to finish anyway. The right length is the one where the timer running out feels like a natural pause point rather than a rude interruption.</p>
+
+      <h2>Common mistakes</h2>
+      <p>The most common mistake is treating a broken interval as a failure and abandoning the method entirely. If you get interrupted mid-session, the original technique simply says to note it and restart — it's not a strike against you. A second common mistake is skipping breaks because you feel "in the zone." This tends to backfire within a few cycles: the fatigue you postponed shows up later as lower-quality focus, not less fatigue overall. A third mistake is using the technique for tasks that don't actually benefit from interruption, like a single uninterruptible two-hour meeting — Pomodoro is designed for self-directed, interruptible work, not everything.</p>
+
+      <h2>Getting started</h2>
+      <p>The best way to evaluate whether the technique fits your work is to run it for a few real sessions rather than reading about it further. Open the <a href="../tools/pomodoro.html">Pomodoro tool</a>, keep the default 25/5 structure for your first few cycles, and adjust only after you've noticed where the friction actually is.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

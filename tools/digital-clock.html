@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Clock — Free Online Full-Screen Clock | TimerHub</title>
+<meta name="description" content="A clean, large, live digital clock for your browser. Switch between 12-hour and 24-hour format, toggle seconds, and go fullscreen for a desk display, classroom wall clock or presentation break screen.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <span class="badge badge-accent">Everyday</span>
+    </span>
+    <h1>Digital Clock</h1>
+    <p class="lede">A calm, oversized live clock for your browser — perfect as a desk display, a presentation intermission screen or a classroom wall clock. Switch formats, toggle seconds, and go fullscreen in one tap.</p>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="running">
+      <div class="timer-utility-row">
+        <button class="util-btn" id="fullscreen-toggle" data-fullscreen-open aria-label="Enter fullscreen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+
+      <div class="clock-display" data-clock-time>--:--:--</div>
+      <div class="clock-date" data-clock-date>Loading date&hellip;</div>
+
+      <div style="display:flex; flex-wrap:wrap; gap: var(--space-lg); justify-content:center;">
+        <div class="field" style="align-items:center;">
+          <label id="format-label">Time format</label>
+          <div class="chip-row" role="group" aria-labelledby="format-label" data-format-row>
+            <button class="chip is-active" data-format="12" type="button">12-hour</button>
+            <button class="chip" data-format="24" type="button">24-hour</button>
+          </div>
+        </div>
+        <div class="field" style="align-items:center;">
+          <label id="seconds-label">Seconds</label>
+          <div class="chip-row" role="group" aria-labelledby="seconds-label" data-seconds-row>
+            <button class="chip is-active" data-seconds="on" type="button">Show</button>
+            <button class="chip" data-seconds="off" type="button">Hide</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>The Digital Clock is a distraction-free, oversized clock that runs entirely in your browser tab. There's no setup beyond opening the page — it reads the correct time straight from your device and updates every second, making it a handy stand-in for a physical desk clock, a lobby display or a classroom wall clock.</p>
+          <p>It pairs naturally with our other everyday tools: use the <a href="alarm.html">Online Alarm</a> when you need to be reminded at a specific time, or the <a href="timer.html">Timer</a> when you need to count down a duration rather than just watch the current time.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Open the page and the clock starts immediately — no configuration required. Use the <strong>12-hour / 24-hour</strong> toggle to switch between "6:45:12 PM" and "18:45:12" style formats, and the <strong>Show / Hide</strong> seconds toggle if you'd rather see a calmer display without the seconds ticking over. Tap the fullscreen icon in the top-right of the card to blow the clock up to fill your entire screen — ideal for projecting onto a classroom screen or leaving up on a spare monitor. Press the exit icon or Escape to leave fullscreen.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Large, legible display built from your device's own system clock</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>One-tap 12-hour / 24-hour format switch</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Optional seconds display for a calmer, slower-moving clock</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Full date shown underneath, in plain language</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Genuine fullscreen mode for second monitors and projectors</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>No installs, no accounts, no ads inside the clock itself</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p>Keep this open as a desk display next to your monitor, project it fullscreen during a workshop or conference intermission, put it up on a classroom screen so students can see the time at a glance, or dedicate a spare second monitor to it as a simple, timezone-free clock that's always visible. Because it reads your device's own local time, there's nothing to configure for your timezone or daylight saving — it's always correct.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>If you're projecting the clock for a group, switch to 24-hour format to avoid any AM/PM ambiguity, and hide the seconds if the ticking motion is distracting on a shared screen. On a dedicated second monitor, fullscreen mode gives you a clean, borderless clock with nothing else competing for attention.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="alarm.html">Online Alarm <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="timer.html">Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="meeting-timer.html">Meeting Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="countdown.html">Countdown Timer <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does this show my correct local time?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The clock reads the time directly from your device's system clock and timezone settings, so as long as your computer or phone's clock is set correctly, the display will always match it — no location permissions or manual timezone selection needed.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I use 24-hour format?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Use the Time Format toggle above the clock to switch between 12-hour (with AM/PM) and 24-hour display at any time — the change applies instantly.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I display this fullscreen on a second monitor?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Drag this browser tab onto your second monitor and tap the fullscreen icon in the top-right of the clock card — the display expands to fill the entire screen with no browser chrome, header or footer visible. Press Escape or the exit icon to leave fullscreen.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it work offline once loaded?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Once the page has finished loading, the clock itself needs no further network activity — it's driven entirely by your device's own clock in JavaScript. If your connection drops after the page loads, the time will keep updating normally.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I hide the seconds?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. Use the Seconds toggle to switch between showing a constantly ticking seconds field and a calmer display that only shows hours and minutes.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does this tool make any sound?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>No. The Digital Clock is a silent, purely visual display with no chimes or alerts. If you need an audible alert at a specific time, use the <a href="alarm.html">Online Alarm</a> instead.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/digital-clock.js"></script>
+</body>
+</html>

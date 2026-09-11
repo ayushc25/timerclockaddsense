@@ -1,0 +1,53 @@
+/* ==========================================================================
+   TimerHub — Smart Routines player
+   Additive, minimal styles for the multi-stage routine player. Reuses
+   .timer-stage / .interval-phase-badge / .interval-meta-row from timer.css
+   wherever possible; only adds what those don't already cover.
+   ========================================================================== */
+
+.routine-player-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+}
+.routine-player-head .eyebrow { margin-bottom: var(--space-xs); }
+.routine-player-head h2 { margin: 0; }
+
+.routine-timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 620px;
+  margin-top: var(--space-lg);
+}
+.routine-timeline-stage {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  color: var(--color-ink-faint);
+  border: 1px solid transparent;
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+.routine-timeline-stage[data-status="active"] {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  border-color: var(--color-accent);
+}
+.routine-timeline-stage[data-status="done"] {
+  color: var(--color-ink-muted);
+  text-decoration: line-through;
+}
+
+.routine-card .routine-card-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}

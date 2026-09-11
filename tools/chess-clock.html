@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Clock — TimerHub</title>
+<meta name="description" content="A proper two-player chess clock with tap-to-switch turns, Fischer increment, common time controls, flag detection and a fullscreen face-to-face display.">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/timer.css">
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="tool-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="../tools/index.html" aria-current="page">Tools</a>
+        <a href="../routines/index.html">Routines</a>
+        <a href="../templates/index.html">Templates</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="../tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="../tools/index.html">Tools</a>
+    <a href="../routines/index.html">Routines</a>
+    <a href="../templates/index.html">Templates</a>
+    <a href="../blog/index.html">Blog</a>
+  </nav>
+  <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2l1.5 3H15l-1 2 2 2-2 1 1 3H9l1-3-2-1 2-2-1-2h1.5z"/><path d="M7 22h10M8 22v-3h8v3"/></svg>
+      Games
+    </span>
+    <h1>A proper two-player chess clock</h1>
+    <p class="lede">Set a starting time and an optional increment, then hand the device over — tap your own clock after every move to pass the turn, just like a real analog clock. Built for chess, but just as at home timing checkers, Scrabble or a heated debate.</p>
+    <div class="chip-row" style="justify-content:center; margin-top: var(--space-md);">
+      <span class="badge badge-accent">Games</span>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="timer-stage" data-timer-stage data-state="setup">
+      <div class="timer-status-row">
+        <span class="status-dot"></span>
+        <span data-status-text>Set up your game</span>
+      </div>
+
+      <div class="chess-setup" data-setup>
+        <div class="chip-row" data-time-presets>
+          <button class="chip" data-minutes="1" data-increment="0">1 min Bullet</button>
+          <button class="chip" data-minutes="3" data-increment="2">3 min Blitz</button>
+          <button class="chip" data-minutes="5" data-increment="3">5 min Blitz</button>
+          <button class="chip" data-minutes="10" data-increment="0">10 min Rapid</button>
+          <button class="chip" data-minutes="15" data-increment="10">15 min Rapid</button>
+          <button class="chip" data-minutes="30" data-increment="0">30 min Classical</button>
+        </div>
+
+        <div class="duration-picker">
+          <div class="duration-field">
+            <input type="number" inputmode="numeric" min="1" max="180" value="5" aria-label="Starting minutes per player" data-input="minutes">
+            <label>Minutes</label>
+          </div>
+          <div class="duration-field">
+            <input type="number" inputmode="numeric" min="0" max="60" value="0" aria-label="Increment in seconds per move" data-input="increment">
+            <label>Increment (s)</label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" data-action="start-game">
+          Start Game
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="chess-clock" data-chess-clock hidden>
+        <button type="button" class="chess-player" data-player="1" aria-label="End your turn — Player 1">
+          <span class="player-label" data-label="1">Waiting</span>
+          <span class="player-time" data-time="1">05:00</span>
+        </button>
+        <button type="button" class="chess-player" data-player="2" aria-label="End your turn — Player 2">
+          <span class="player-label" data-label="2">Waiting</span>
+          <span class="player-time" data-time="2">05:00</span>
+        </button>
+      </div>
+
+      <div class="timer-controls" data-game-controls hidden>
+        <button class="control-secondary" data-action="reset" aria-label="Reset to setup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+        </button>
+        <button class="control-primary" data-action="pause-toggle" aria-label="Pause game">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-pause-icon><path d="M7 5v14M17 5v14"/></svg>
+        </button>
+      </div>
+
+      <button class="btn btn-primary btn-lg" data-action="new-game" hidden>New Game</button>
+
+      <div class="timer-utility-row">
+        <button class="util-btn is-active" aria-label="Sound on" data-action="sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-sound-icon><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+        </button>
+        <button class="util-btn" aria-label="Enter fullscreen" data-fullscreen-open>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="fullscreen-focus">
+    <button class="fullscreen-exit" data-fullscreen-close aria-label="Exit fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 00-2 2v4M15 3h4a2 2 0 012 2v4M9 21H5a2 2 0 01-2-2v-4M15 21h4a2 2 0 002-2v-4"/></svg>
+    </button>
+    <div data-fullscreen-slot></div>
+  </div>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  </section>
+
+  <section class="section container">
+    <div class="content-layout">
+      <div class="content-main">
+
+        <article>
+          <h2>Introduction</h2>
+          <p>A chess clock only has one job — keep each player's thinking time honest — but it's surprisingly hard to get right on a screen. TimerHub's Chess Clock is built the way a real tournament clock works: two independent countdowns, one tap to end your turn and start your opponent's, and a clear, unmissable signal for whose move it is. There's nothing to install and nothing to configure beyond picking a time control, so you can go from "let's play" to first move in a few seconds.</p>
+        </article>
+
+        <article>
+          <h2>How to Use</h2>
+          <p>Choose a time control from the presets — Bullet, Blitz, Rapid or Classical — or set your own starting minutes and increment, then press <strong>Start Game</strong>. Player 1's clock begins running first. After making a move, the player whose turn it is taps their own clock — not their opponent's — which stops their time, adds any increment they've earned, and starts the other player's clock. Repeat for the whole game. Use <strong>Pause</strong> at any point to freeze both clocks (handy for a rules dispute or a bathroom break), and <strong>Reset</strong> to return to setup for a new time control.</p>
+        </article>
+
+        <article>
+          <h2>Features</h2>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Two fully independent, drift-corrected countdowns — one per player</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Large tap targets — the entire player panel is the button, ideal for quick taps mid-game</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fischer increment support, added to your own clock the instant you end your turn</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Six standard time-control presets plus fully custom starting time and increment</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Clear text label — "Your Turn" vs "Waiting" — so the active player is never ambiguous, even at a glance</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Automatic flag detection with a chime and on-screen notice the moment a player runs out</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Fullscreen mode for a clean, distraction-free display across the board</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Use Cases</h2>
+          <p><strong>Chess.</strong> The obvious one — any time control from bullet to classical, at home or at a casual club night. <strong>Checkers and Scrabble.</strong> Any two-player board game with a turn structure benefits from a visible time budget. <strong>Debate timing.</strong> Give each side of a structured debate an equal, enforced speaking budget. <strong>Board game turn timing.</strong> Keep slower players moving in strategy games without a full timer for every phase. <strong>Two-player quiz formats.</strong> Head-to-head trivia nights where each contestant gets a fixed thinking budget per round.</p>
+        </article>
+
+        <article>
+          <h2>Tips</h2>
+          <p>Increment (also called "Fischer time") adds a fixed number of seconds to your own clock every time you complete a move — it rewards fast, decisive play without letting a whole game hinge on the last few seconds. A "5+3" time control, for example, gives each player 5 starting minutes plus 3 extra seconds after every move they make. If you're new to timed games, start with a longer control like 15+10 or 30 minutes with no increment — bullet and blitz controls reward pattern recognition more than deep calculation, and they take practice to enjoy. Always double-check the starting time and increment before tapping Start Game — once the game begins, both are locked until you reset.</p>
+        </article>
+
+      </div>
+
+      <aside class="content-side">
+        <div class="card related-tools-card">
+          <h4>Related Tools</h4>
+          <ul>
+            <li><a href="meeting-timer.html">Meeting Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="timer.html">Countdown Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="interval.html">Interval Timer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="stopwatch.html">Stopwatch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ad-slot ad-slot-rail" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions about the chess clock</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Which clock do I tap to end my turn?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Tap your own clock — the one that's currently running and labelled "Your Turn" — right after you make your move. This stops your time, adds any increment you've earned, and immediately starts your opponent's clock.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is increment and how does it work here?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Increment (Fischer time) is a number of seconds added back to a player's own clock every time they end their turn. It's added the moment you tap your clock, so a well-set increment means you rarely lose on time alone as long as you keep moving.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens when a player's time runs out?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>That player's panel is marked as flagged, both clocks stop immediately, a chime plays and an on-screen notice announces who ran out of time. Tap "New Game" to set up another match.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I pause mid-game?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes. The pause button freezes both clocks exactly where they are — neither side loses time — and tapping to switch turns is disabled until you resume.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I set a different starting time for each player?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>The setup screen uses one shared starting time and increment for both players, matching standard tournament formats. Handicap or odds games with unequal time aren't supported yet.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does this work well on a single phone shared between two players?
+          <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-answer"><div><p>Yes — that's exactly what it's designed for. Each player's panel is a large, full-height tap target, and fullscreen mode gives you a clean two-panel display with nothing else on screen for face-to-face play.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../tools/index.html">Tools</a></li>
+          <li><a href="../routines/index.html">Routines</a></li>
+          <li><a href="../templates/index.html">Templates</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lib/audio.js"></script>
+<script src="../js/lib/timeutils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools/chess-clock.js"></script>
+</body>
+</html>

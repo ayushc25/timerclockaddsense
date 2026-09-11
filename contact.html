@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact TimerHub</title>
+<meta name="description" content="Get in touch with the TimerHub team — general inquiries, bug reports, feature requests and partnership questions.">
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/timer.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+      TimerHub
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="tools/index.html">Tools</a>
+        <a href="routines/index.html">Routines</a>
+        <a href="templates/index.html">Templates</a>
+        <a href="blog/index.html">Blog</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="tools/timer.html" class="btn btn-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+        Start Timer
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer">
+  <nav aria-label="Mobile">
+    <a href="tools/index.html">Tools</a>
+    <a href="routines/index.html">Routines</a>
+    <a href="templates/index.html">Templates</a>
+    <a href="blog/index.html">Blog</a>
+  </nav>
+  <a href="tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+</div>
+
+<main id="main">
+
+  <section class="page-header container">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12l5 5L20 7"/></svg>
+      Contact Us
+    </span>
+    <h1>We'd like to hear from you</h1>
+    <p class="lede">Questions, bug reports, feature ideas or partnership inquiries — send us a message and we'll get back to you.</p>
+  </section>
+
+  <section class="section container">
+    <form class="form-grid" id="contact-form" novalidate>
+      <div class="form-row-2">
+        <div class="field">
+          <label for="contact-name">Name</label>
+          <input class="input" type="text" id="contact-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="contact-email">Email</label>
+          <input class="input" type="email" id="contact-email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="contact-subject">Subject</label>
+        <select class="select" id="contact-subject" name="subject" required>
+          <option value="" disabled selected>Choose a topic</option>
+          <option value="general">General Inquiry</option>
+          <option value="bug">Bug Report</option>
+          <option value="feature">Feature Request</option>
+          <option value="partnership">Partnership</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="contact-message">Message</label>
+        <textarea class="input" id="contact-message" name="message" rows="6" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+    </form>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6M12 2v2" stroke-linecap="round"/></svg>
+          TimerHub
+        </a>
+        <p>Simple, beautiful online tools for managing time — focus, fitness, cooking, meetings and everyday life.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="tools/index.html">Tools</a></li>
+          <li><a href="routines/index.html">Routines</a></li>
+          <li><a href="templates/index.html">Templates</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> TimerHub. All rights reserved.</span>
+      <span>Built for focused people, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lib/audio.js"></script>
+<script src="js/lib/timeutils.js"></script>
+<script src="js/main.js"></script>
+<script src="js/tools/contact.js"></script>
+</body>
+</html>
