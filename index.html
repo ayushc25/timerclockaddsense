@@ -45,6 +45,13 @@
 </header>
 
 <div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-header">
+    <button type="button" class="drawer-back-btn" data-drawer-close aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <span class="drawer-title">Menu</span>
+  </div>
   <nav aria-label="Mobile">
     <a href="tools/index.html">Tools</a>
     <a href="routines/index.html">Routines</a>
@@ -60,6 +67,12 @@
   <section class="hero container">
     <div class="hero-grid">
       <div class="hero-copy">
+        <div class="page-back-nav home-back-nav" style="display:none;">
+          <a href="javascript:history.back()" class="page-back-btn" data-back-btn aria-label="Back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Back</span>
+          </a>
+        </div>
         <span class="eyebrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12l5 5L20 7"/></svg>
           Trusted by focused people everywhere
@@ -77,6 +90,11 @@
           <span class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>Accurate to the millisecond</span>
           <span class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>13 dedicated tools</span>
           <span class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>No sign-up required</span>
+        </div>
+
+        <!-- HERO LEFT BOTTOM CORNER ADVERTISEMENT -->
+        <div class="hero-ad-corner">
+          <div class="ad-slot" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
         </div>
       </div>
 
@@ -173,6 +191,10 @@
         <p>Structured focus and break cycles to help you do deep work without burning out.</p>
         <span class="card-cta">Open Pomodoro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
+
+      <!-- ADVERTISEMENT SPACE (Between line 1 and line 2 of cards) -->
+      <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+
       <a href="tools/interval.html" class="card tool-card reveal">
         <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 2l4 4-4 4M21 6H8a5 5 0 000 10h13M7 22l-4-4 4-4M3 18h13a5 5 0 000-10"/></svg></div>
         <h3>Interval Timer</h3>
@@ -191,6 +213,9 @@
         <p>A proper two-player clock with increments, tap-to-switch and flag detection.</p>
         <span class="card-cta">Open Chess Clock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
+
+      <!-- ADVERTISEMENT SPACE (After the cards) -->
+      <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
     </div>
   </section>
 

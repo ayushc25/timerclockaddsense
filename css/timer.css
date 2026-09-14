@@ -178,6 +178,7 @@
   .timer-stage {
     padding: var(--space-lg) var(--space-md);
     gap: var(--space-lg);
+    border-radius: var(--radius-md);
   }
   .timer-utility-row {
     position: static;
@@ -190,6 +191,60 @@
     width: 100%;
     justify-content: center;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-stage {
+    padding: var(--space-md) var(--space-xs);
+    gap: var(--space-md);
+  }
+  .timer-ring-wrap {
+    width: min(280px, 76vw);
+  }
+  .timer-digits {
+    font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+  }
+  .control-primary {
+    width: 68px;
+    height: 68px;
+  }
+  .control-primary svg {
+    width: 26px;
+    height: 26px;
+  }
+  .control-secondary {
+    width: 50px;
+    height: 50px;
+  }
+  .control-secondary svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .timer-ring-wrap {
+    width: min(235px, 72vw);
+  }
+  .timer-digits {
+    font-size: clamp(1.6rem, 7.8vw, 2.1rem);
+  }
+  .control-primary {
+    width: 60px;
+    height: 60px;
+  }
+  .control-primary svg {
+    width: 22px;
+    height: 22px;
+  }
+  .control-secondary {
+    width: 44px;
+    height: 44px;
+  }
+  .control-secondary svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -332,6 +387,15 @@
   color: var(--color-ink-faint);
 }
 
+@media (max-width: 420px) {
+  .lap-row, .lap-list-head {
+    grid-template-columns: 30px 1fr auto;
+    gap: var(--space-xs);
+    font-size: var(--fs-xs);
+    padding-inline: 0;
+  }
+}
+
 /* ---------- Chess clock ---------- */
 
 .chess-setup {
@@ -437,10 +501,31 @@
 .tally-btn:hover { transform: scale(1.06); }
 .tally-btn.tally-minus { background: var(--color-surface); color: var(--color-ink); border: 1px solid var(--color-border-strong); box-shadow: var(--shadow-sm); }
 
+@media (max-width: 480px) {
+  .bpm-display { font-size: 2.4rem; }
+  .metronome-pulse { width: 74px; height: 74px; }
+  .beat-dots { gap: 6px; }
+  .beat-dot { width: 9px; height: 9px; }
+  .tally-controls { gap: var(--space-md); }
+  .tally-btn { width: 70px; height: 70px; font-size: 1.6rem; }
+  .tally-btn svg { width: 26px; height: 26px; }
+}
+
 /* ---------- Digital clock ---------- */
 
-.clock-display { font-family: var(--font-display); font-size: clamp(2.4rem, 11vw, 7rem); font-variant-numeric: tabular-nums; text-align: center; }
+.clock-display {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 10vw, 7rem);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  word-break: break-word;
+}
 .clock-date { text-align: center; font-size: var(--fs-md); color: var(--color-ink-muted); font-weight: 600; }
+
+@media (max-width: 480px) {
+  .clock-display { font-size: clamp(1.6rem, 9.5vw, 3.2rem); }
+  .clock-date { font-size: var(--fs-sm); }
+}
 
 /* ---------- Pomodoro Settings Grid ---------- */
 

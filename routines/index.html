@@ -46,6 +46,13 @@
 </header>
 
 <div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-header">
+    <button type="button" class="drawer-back-btn" data-drawer-close aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <span class="drawer-title">Menu</span>
+  </div>
   <nav aria-label="Mobile">
     <a href="../tools/index.html">Tools</a>
     <a href="../routines/index.html">Routines</a>
@@ -53,12 +60,19 @@
     <a href="../blog/index.html">Blog</a>
   </nav>
   <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+  <div class="ad-slot" role="complementary" aria-label="Advertisement placeholder" style="margin-top: var(--space-md); min-height: 80px;">Advertisement Space</div>
 </div>
 
 <main id="main">
 
   <!-- ROUTINE GRID VIEW -->
   <section class="page-header container" data-routines-view>
+    <div class="page-back-nav">
+      <a href="../index.html" class="page-back-btn" data-back-btn aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </a>
+    </div>
     <span class="eyebrow">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17 2l4 4-4 4M21 6H8a5 5 0 000 10h13M7 22l-4-4 4-4M3 18h13a5 5 0 000-10"/></svg>
       Smart Routines
@@ -95,6 +109,9 @@
         Exit Routine
       </button>
     </div>
+
+    <!-- ADVERTISEMENT CARD JUST ABOVE CLOCK CARD -->
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder" style="margin-bottom: var(--space-lg);">Advertisement Space</div>
 
     <div class="timer-stage" data-timer-stage data-state="ready" data-phase="work">
       <div class="timer-status-row">

@@ -45,6 +45,13 @@
 </header>
 
 <div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-header">
+    <button type="button" class="drawer-back-btn" data-drawer-close aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <span class="drawer-title">Menu</span>
+  </div>
   <nav aria-label="Mobile">
     <a href="../tools/index.html">Tools</a>
     <a href="../routines/index.html">Routines</a>
@@ -52,17 +59,29 @@
     <a href="../blog/index.html">Blog</a>
   </nav>
   <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+  <div class="ad-slot" role="complementary" aria-label="Advertisement placeholder" style="margin-top: var(--space-md); min-height: 80px;">Advertisement Space</div>
 </div>
 
 <main id="main">
 
   <section class="page-header container">
+    <div class="page-back-nav">
+      <a href="index.html" class="page-back-btn" data-back-btn aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </a>
+    </div>
     <span class="eyebrow">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M8 2h8M9 22h6M12 6a6 6 0 016 6c0 3-2 5-2 5H8s-2-2-2-5a6 6 0 016-6z"/></svg>
       Everyday &middot; Productivity
     </span>
     <h1 data-label-heading>Countdown Timer</h1>
     <p class="lede">Set an exact countdown for any task — dial in hours, minutes and seconds, or pick a one-tap preset — and watch it run down on a calm, distraction-free ring.</p>
+  </section>
+
+  <!-- ADVERTISEMENT CARD JUST ABOVE CLOCK CARD -->
+  <section class="container" style="padding-bottom: var(--space-lg);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
   </section>
 
   <section class="container">

@@ -45,6 +45,13 @@
 </header>
 
 <div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-header">
+    <button type="button" class="drawer-back-btn" data-drawer-close aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <span class="drawer-title">Menu</span>
+  </div>
   <nav aria-label="Mobile">
     <a href="../tools/index.html">Tools</a>
     <a href="../routines/index.html">Routines</a>
@@ -52,16 +59,28 @@
     <a href="../blog/index.html">Blog</a>
   </nav>
   <a href="../tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
+  <div class="ad-slot" role="complementary" aria-label="Advertisement placeholder" style="margin-top: var(--space-md); min-height: 80px;">Advertisement Space</div>
 </div>
 
 <main id="main">
 
   <section class="page-header container">
+    <div class="page-back-nav">
+      <a href="index.html" class="page-back-btn" data-back-btn aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </a>
+    </div>
     <span class="eyebrow">
       <span class="badge badge-accent">Everyday</span>
     </span>
     <h1>Online Alarm</h1>
     <p class="lede">Set a precise wake-up, reminder or nap alarm right in your browser. Choose a time, pick a tone, and TimerHub will ring for you — no app, no account, no installs.</p>
+  </section>
+
+  <!-- ADVERTISEMENT CARD JUST ABOVE CLOCK CARD -->
+  <section class="container" style="padding-bottom: var(--space-lg);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
   </section>
 
   <section class="container">

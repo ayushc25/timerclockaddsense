@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .hero {
-  padding-block: var(--space-3xl) var(--space-2xl);
+  padding-block: var(--space-xl) var(--space-2xl);
   position: relative;
   overflow: hidden;
 }
@@ -11,19 +11,35 @@
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: var(--space-3xl);
-  align-items: center;
+  align-items: stretch;
 }
-.hero-copy .eyebrow { margin-bottom: var(--space-md); }
-.hero-copy h1 { margin-bottom: var(--space-lg); }
-.hero-copy .lede { margin-bottom: var(--space-xl); }
-.hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-xl); }
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+}
+.hero-copy .eyebrow { margin-bottom: var(--space-xs); }
+.hero-copy h1 { margin-bottom: var(--space-sm); }
+.hero-copy .lede { margin-bottom: var(--space-lg); }
+.hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-lg); }
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; }
   .hero-actions .btn { width: 100%; }
 }
-.hero-trust { display: flex; gap: var(--space-lg); flex-wrap: wrap; }
+.hero-trust { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xs); }
 .hero-trust-item { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--fs-xs); color: var(--color-ink-muted); font-weight: 600; }
 .hero-trust-item svg { width: 16px; height: 16px; color: var(--color-accent); }
+
+.hero-ad-corner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-lg);
+}
+.hero-ad-corner .ad-slot {
+  flex: 1;
+  width: 100%;
+  min-height: 120px;
+}
 
 .hero-preview { position: relative; }
 .hero-preview::before {
@@ -88,6 +104,17 @@
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; gap: var(--space-2xl); }
   .hero-preview { max-width: 440px; margin-inline: auto; width: 100%; }
+  .hero-ad-corner { flex: initial; margin-top: var(--space-lg); }
+  .hero-ad-corner .ad-slot { min-height: 90px; }
+}
+
+@media (max-width: 480px) {
+  .hero-grid { gap: var(--space-xl); }
+  .hero-copy h1 { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
+  .hero-copy .lede { font-size: 0.95rem; line-height: 1.55; }
+  .hero-trust { gap: var(--space-md); }
+  .hero-ad-corner { margin-top: var(--space-md); }
+  .hero-ad-corner .ad-slot { min-height: 75px; }
 }
 
 /* ---------- Section: tool grid ---------- */
@@ -214,6 +241,20 @@
 .page-header.align-left { text-align: left; }
 .page-header.align-left .lede { margin-inline: 0; }
 
+@media (max-width: 640px) {
+  .page-header {
+    padding-block: var(--space-lg) var(--space-md);
+  }
+  .page-header h1 {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    margin-block: var(--space-xs);
+  }
+  .page-header .lede {
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+  }
+}
+
 /* ---------- Filters bar ---------- */
 
 .filters-bar {
@@ -221,6 +262,13 @@
   flex-direction: column;
   gap: var(--space-lg);
   margin-bottom: var(--space-2xl);
+}
+
+@media (max-width: 640px) {
+  .filters-bar {
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
 }
 
 /* ---------- Routine / template cards ---------- */
@@ -235,7 +283,22 @@
 .routine-stage .stage-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); margin-right: 6px; display: inline-block; }
 
 .template-card { padding: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
-.template-card .tool-icon { flex-shrink: 0; width: 46px; height: 46px; }
+.template-card .tool-icon {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #FDF0E6 0%, #F5D7C3 100%);
+  border: 1.5px solid rgba(180, 99, 58, 0.22);
+  color: var(--color-accent-strong);
+  box-shadow: 0 6px 16px -3px rgba(180, 99, 58, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+}
+.template-card .tool-icon svg { width: 30px; height: 30px; stroke-width: 2; }
+.template-card:hover .tool-icon {
+  transform: scale(1.06);
+  box-shadow: 0 10px 22px -3px rgba(180, 99, 58, 0.26);
+}
 .template-card .template-meta { flex: 1; }
 .template-card .template-meta h3 { font-size: 1.05rem; }
 .template-card .template-meta p { font-size: var(--fs-xs); margin-top: 2px; }
