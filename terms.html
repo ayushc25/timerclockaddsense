@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms &amp; Conditions — TimerHub</title>
-<meta name="description" content="TimerHub's terms and conditions: acceptance of terms, acceptable use, intellectual property, disclaimers and limitation of liability.">
+<meta name="description" content="TimerHub's terms and conditions: acceptable use, non-critical timing disclaimers, advertising terms, intellectual property, and limitation of liability.">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,15 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/timer.css">
 <link rel="stylesheet" href="css/home.css">
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('timerhub_theme');
+      if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e){}
+  })();
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -33,6 +42,10 @@
       </div>
     </nav>
     <div class="header-actions">
+      <button class="theme-toggle-btn" type="button" aria-label="Toggle dark/light theme" title="Toggle theme (Alt+T)">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <a href="tools/timer.html" class="btn btn-accent">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
         Start Timer
@@ -58,6 +71,13 @@
     <a href="templates/index.html">Templates</a>
     <a href="blog/index.html">Blog</a>
   </nav>
+  <div style="display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-xs);">
+    <span style="font-size: var(--fs-sm); font-weight: 600;">Theme</span>
+    <button class="theme-toggle-btn" type="button" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
   <a href="tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
 </div>
 
@@ -71,37 +91,42 @@
       </a>
     </div>
     <h1>Terms &amp; Conditions</h1>
-    <p class="lede">The terms that govern your use of TimerHub.</p>
+    <p class="lede">The terms governing your access to and use of TimerHub.</p>
   </section>
 
   <section class="section container">
     <div class="legal-body">
-      <p class="legal-updated">Last updated: August 1, 2026</p>
+      <p class="legal-updated">Last updated: September 14, 2026</p>
 
-      <h2>Acceptance of Terms</h2>
-      <p>By accessing or using TimerHub, you agree to these Terms &amp; Conditions. If you do not agree with any part of these terms, please do not use the site.</p>
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using the TimerHub website ("Site", "Service", "we", or "us"), you agree to be bound by these Terms &amp; Conditions. If you do not agree with any provision of these terms, you must discontinue use of the site immediately.</p>
 
-      <h2>Description of Service</h2>
-      <p>TimerHub provides free, browser-based timing tools, including but not limited to a stopwatch, countdown timer, Pomodoro timer, interval timer, alarm and chess clock. The service is provided free of charge and does not require account creation. We do not guarantee uninterrupted or error-free availability, and the service may be modified, suspended or discontinued at any time without notice.</p>
+      <h2>2. Description of Service &amp; Free Access</h2>
+      <p>TimerHub provides free web-based utility timers, alarms, metronomes, chess clocks, and routines designed to run directly in modern web browsers. The service is provided free of charge, without mandatory account registration. We reserve the right to modify, update, enhance, or discontinue any feature or tool at our discretion without prior liability.</p>
 
-      <h2>Acceptable Use</h2>
-      <p>You agree to use TimerHub only for lawful purposes. You agree not to attempt to disrupt, overload or interfere with the operation of the site, not to attempt to reverse engineer, scrape or misuse the site's code or content beyond normal personal use, and not to use the site in any way that could damage, disable or impair it for other users.</p>
+      <h2>3. Acceptable Use Policy</h2>
+      <p>You agree to use TimerHub only for lawful, personal, instructional, or professional timing purposes. You agree not to:</p>
+      <ul>
+        <li>Disrupt, overload, or attack the website's infrastructure, hosting systems, or associated networks.</li>
+        <li>Attempt to bypass, disable, or tamper with security measures, ad placements, or site integrity.</li>
+        <li>Systematically scrape, mirror, or repackage TimerHub software or editorial content for commercial distribution without prior written consent.</li>
+      </ul>
 
-      <h2>Intellectual Property</h2>
-      <p>The TimerHub name, logo, visual design and underlying code are the property of TimerHub and its creators, except where otherwise noted. You may use the site for personal, non-commercial purposes. You may not copy, redistribute or repurpose the site's design, branding or code without prior permission.</p>
+      <h2>4. Non-Critical Timing Disclaimer &amp; Limitation of Liability</h2>
+      <p><strong>IMPORTANT NOTICE:</strong> While TimerHub utilizes drift-corrected engines and background Web Worker synchronization to achieve maximum reliability, all web-based timers remain subject to underlying hardware power-saving states, browser throttling, battery sleep states, and device operating system policies outside of our control.</p>
+      <p><strong>TimerHub is NOT intended or certified for life-critical, medical, industrial safety, emergency response, or dangerous operations timing.</strong> You must not rely on TimerHub as the sole timing device for critical medical dosing, vital patient monitoring, chemical reactions, or safety-critical equipment shutdowns. To the maximum extent permitted by applicable law, TimerHub, its authors, and affiliates disclaim all warranties (express or implied) and shall not be held liable for any damages, losses, or injuries resulting from reliance on the service.</p>
 
-      <h2>Disclaimers and Limitation of Liability</h2>
-      <p>TimerHub's tools are provided "as is," without warranties of any kind, express or implied, including but not limited to accuracy, reliability or fitness for a particular purpose. While we take reasonable care to keep timing accurate under normal conditions, timers depend on your device, browser and network environment, all of which are outside our control.</p>
-      <p>TimerHub's timers are not intended to be relied upon as the sole means of timing safety-critical, medical or otherwise high-stakes tasks — for example, medication schedules, medical procedures or safety equipment checks — without independent verification through a dedicated, purpose-built device. To the fullest extent permitted by law, TimerHub and its creators are not liable for any loss, damage or harm arising from reliance on the accuracy or availability of the service.</p>
+      <h2>5. Advertising &amp; Third-Party Services</h2>
+      <p>TimerHub is funded through digital advertising, including Google AdSense. Third-party advertisers may display commercial announcements in designated ad slots. We do not endorse third-party products, services, or claims advertised through automated ad networks. Your interactions with third-party advertisements are governed by the respective advertisers' terms and privacy policies.</p>
 
-      <h2>Changes to the Service</h2>
-      <p>We may update, add, remove or otherwise change tools, features or content on TimerHub at any time. We may also revise these Terms &amp; Conditions periodically; continued use of the site after changes take effect constitutes acceptance of the updated terms.</p>
+      <h2>6. Intellectual Property</h2>
+      <p>The TimerHub brand name, logotype, visual user interface design, typography systems, sound synthesis configurations, and proprietary source code are protected by copyright, trademark, and intellectual property laws. All rights not expressly granted herein are reserved.</p>
 
-      <h2>Governing Law</h2>
-      <p>These terms are intended to be interpreted under the laws applicable in your jurisdiction of residence, to the extent such laws apply to your use of the service.</p>
+      <h2>7. Modifications to Terms</h2>
+      <p>We may revise these Terms &amp; Conditions periodically. Continued use of TimerHub after updated terms are published constitutes your acceptance of the amended terms.</p>
 
-      <h2>Contact Us</h2>
-      <p>Questions about these terms can be sent to us through our <a href="contact.html">contact page</a>.</p>
+      <h2>8. Contact Information</h2>
+      <p>For questions or concerns regarding these Terms &amp; Conditions, please reach out via our <a href="contact.html">Contact Page</a> or write to <a href="mailto:privacy@timerhub.io">privacy@timerhub.io</a>.</p>
     </div>
   </section>
 

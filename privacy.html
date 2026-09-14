@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — TimerHub</title>
-<meta name="description" content="TimerHub's privacy policy: what data is and isn't collected, how local storage is used, cookies, third-party services and your rights.">
+<meta name="description" content="TimerHub's privacy policy: transparent details on data handling, local storage usage, advertising cookies, Google AdSense disclosures, CCPA, GDPR, and your rights.">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,15 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/timer.css">
 <link rel="stylesheet" href="css/home.css">
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('timerhub_theme');
+      if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e){}
+  })();
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -33,6 +42,10 @@
       </div>
     </nav>
     <div class="header-actions">
+      <button class="theme-toggle-btn" type="button" aria-label="Toggle dark/light theme" title="Toggle theme (Alt+T)">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <a href="tools/timer.html" class="btn btn-accent">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
         Start Timer
@@ -58,6 +71,13 @@
     <a href="templates/index.html">Templates</a>
     <a href="blog/index.html">Blog</a>
   </nav>
+  <div style="display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-xs);">
+    <span style="font-size: var(--fs-sm); font-weight: 600;">Theme</span>
+    <button class="theme-toggle-btn" type="button" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
   <a href="tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
 </div>
 
@@ -71,38 +91,66 @@
       </a>
     </div>
     <h1>Privacy Policy</h1>
-    <p class="lede">How TimerHub handles data, in plain language.</p>
+    <p class="lede">How TimerHub handles data, cookies, advertising, and your privacy rights in clear, transparent language.</p>
   </section>
 
   <section class="section container">
     <div class="legal-body">
-      <p class="legal-updated">Last updated: August 1, 2026</p>
+      <p class="legal-updated">Last updated: September 14, 2026</p>
 
-      <p>TimerHub is a static, client-side website. There is no user account system, and the tools on this site are designed to run entirely in your browser. This policy explains, honestly and specifically, what that means for your data.</p>
+      <p>TimerHub ("we", "our", or "us") provides free, client-side timing and productivity tools designed to operate directly within your web browser. We believe that privacy is a foundational right and that online utility tools should be honest, straightforward, and respectful of user data. This policy explains what data is collected, how local storage is utilized, how third-party advertising functions, and how you can exercise control over your personal privacy.</p>
 
-      <h2>Information We Collect</h2>
-      <p>TimerHub does not require you to create an account, and we do not collect personal information such as your name or email address simply by using the timer tools. The only place personal information is submitted is our <a href="contact.html">contact form</a>, which you fill in voluntarily to reach us directly.</p>
+      <h2>1. Information We Collect and Process</h2>
+      <p>TimerHub is built client-first. You do not need to create an account, register, or provide personal credentials to use any timer, stopwatch, interval counter, or routine on this site. We do not collect names, home addresses, or phone numbers through normal use of our tools.</p>
+      <p>The only voluntary submission of personal information occurs if you choose to communicate with us directly via our <a href="contact.html">Contact Form</a> or direct email, where you provide your name, email address, and message contents so we can address your inquiry.</p>
 
-      <h2>How We Use Local Storage</h2>
-      <p>Some tools save small preferences directly in your browser's local storage so the site behaves the way you left it — for example, sound preferences (such as whether alert sounds are on or off, and volume level) are saved to your browser's local storage under a key named <code>timerhub_sound_prefs</code>. This information is stored only on your own device. It is never transmitted to our servers or to any third party, and clearing your browser's site data removes it completely.</p>
+      <h2>2. Browser Local Storage</h2>
+      <p>To provide an optimal, interruption-free experience, TimerHub uses your browser's client-side <code>localStorage</code> API. This data stays entirely on your physical device, is never transmitted to our backend servers, and can be cleared at any time via your browser's settings.</p>
+      <ul>
+        <li><code>timerhub_sound_prefs</code>: Remembers whether sound is enabled, chosen alert sound (chime, bell, digital), and master volume level.</li>
+        <li><code>timerhub_theme</code>: Remembers your preferred display theme (light or dark mode).</li>
+        <li><code>timerhub_state_*</code>: Preserves active timer parameters and running target completion timestamps so an accidental reload or tab refresh does not cause you to lose your ongoing countdown.</li>
+        <li><code>timerhub_cookie_consent</code>: Stores your preference regarding non-essential cookies.</li>
+      </ul>
 
-      <h2>Cookies</h2>
-      <p>TimerHub does not currently set tracking cookies. Local storage, described above, is a separate browser mechanism used only to remember your in-app preferences on your own device, not to identify or track you across sites.</p>
+      <h2>3. Third-Party Advertising &amp; Google AdSense</h2>
+      <p>TimerHub is funded by advertising to keep all timing tools completely free to users worldwide. We partner with third-party advertising networks, including <strong>Google AdSense</strong>, to serve advertisements when you visit our website.</p>
+      <ul>
+        <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to TimerHub or other websites.</li>
+        <li>Google's use of advertising cookies (such as the DoubleClick cookie) enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.</li>
+        <li>Users may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</li>
+        <li>Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a> or the <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer">Your Online Choices</a> consumer choice page.</li>
+      </ul>
 
-      <h2>Third-Party Services</h2>
-      <p>TimerHub does not currently use any active third-party analytics service. The site includes a technical integration point that could support an analytics provider in the future, but as of this policy's last update, no analytics data is collected or transmitted. If that changes, we will update this policy to name the provider and describe what is collected before it goes live.</p>
+      <h2>4. Cookies &amp; Tracking Technologies</h2>
+      <p>Cookies are small text files placed on your device. We use essential cookies (and local storage) necessary to deliver core features and preserve timer continuity. Third-party advertising partners may set cookies to measure ad performance, prevent repetitive ad impressions, and deliver relevant promotions according to regulatory frameworks.</p>
+      <p>You can manage cookie preferences at any time via our Cookie Consent banner or through your browser's native cookie management settings.</p>
 
-      <h2>Advertising</h2>
-      <p>Some pages reserve visual space for advertising ("Advertisement Space" placeholders). These slots are not currently connected to an active ad network. If TimerHub begins working with an advertising provider in the future, this policy will be updated to describe what data, if any, that provider collects (such as anonymized ad-delivery data), and how you can control it.</p>
+      <h2>5. European Privacy Rights (GDPR)</h2>
+      <p>If you are located in the European Economic Area (EEA) or United Kingdom (UK), you are afforded specific data protection rights under the General Data Protection Regulation (GDPR):</p>
+      <ul>
+        <li><strong>Right of Access &amp; Portability:</strong> You have the right to request information regarding any personal data we hold about you.</li>
+        <li><strong>Right to Rectification &amp; Erasure:</strong> You can request corrections to incomplete information or request deletion of voluntary communications.</li>
+        <li><strong>Right to Restrict or Object to Processing:</strong> You may object to data processing activities, including targeted advertising.</li>
+        <li><strong>Withdrawal of Consent:</strong> Where processing relies on consent, you may withdraw that consent at any time without affecting the lawfulness of prior processing.</li>
+      </ul>
+      <p>To exercise these rights, please contact our Data Protection Coordinator at <a href="mailto:privacy@timerhub.io">privacy@timerhub.io</a>.</p>
 
-      <h2>Children's Privacy</h2>
-      <p>TimerHub is a general-audience productivity tool and does not knowingly collect personal information from children. Because the site does not collect personal information through normal use, and any information submitted (such as through the contact form) is provided voluntarily, we do not knowingly gather data from children through the ordinary use of our timers.</p>
+      <h2>6. California Consumer Privacy Act (CCPA / CPRA)</h2>
+      <p>Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA), California residents have specific rights regarding their personal information:</p>
+      <ul>
+        <li>We do not sell personal information for monetary consideration.</li>
+        <li>You have the right to know what personal information has been collected, request its deletion, and receive non-discriminatory treatment for exercising your privacy rights.</li>
+        <li>To opt out of the sharing of information for cross-context behavioral advertising, visit <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">AboutAds Choices</a> or use Global Privacy Control (GPC) signals in supported browsers.</li>
+      </ul>
 
-      <h2>Changes to This Policy</h2>
-      <p>We may update this policy from time to time as the site evolves — for example, if we introduce an analytics or advertising integration. Material changes will be reflected in the "Last updated" date above, and we encourage you to review this page periodically.</p>
+      <h2>7. Children's Online Privacy Protection (COPPA)</h2>
+      <p>TimerHub is a general-audience productivity service and does not knowingly collect or solicit personal data from children under the age of 13. If you believe a child has provided us with personal contact information, please notify us immediately and we will promptly delete it.</p>
 
-      <h2>Contact Us</h2>
-      <p>If you have questions about this policy or how TimerHub handles data, please reach out through our <a href="contact.html">contact page</a>.</p>
+      <h2>8. Policy Updates &amp; Contact</h2>
+      <p>We may periodically update this policy to reflect enhancements to our timing tools or changes in legal regulations. Material modifications will be designated with an updated date at the top of this document.</p>
+      <p>For any questions or privacy inquiries, contact us at:</p>
+      <p><strong>TimerHub Privacy Team</strong><br>Email: <a href="mailto:privacy@timerhub.io">privacy@timerhub.io</a><br>Website: <a href="contact.html">Contact Us Form</a></p>
     </div>
   </section>
 

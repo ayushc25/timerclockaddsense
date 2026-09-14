@@ -1,5 +1,6 @@
 /**
  * TimerHub — Timer tool (general-purpose countdown)
+ * Drift-resilient, tab-throttling immune, state-persisted countdown timer.
  */
 (function () {
   'use strict';
@@ -7,6 +8,7 @@
   document.addEventListener('DOMContentLoaded', init);
 
   const CIRC = 565.5;
+  const STORAGE_KEY = 'timer';
 
   function init() {
     const stage = document.querySelector('[data-timer-stage]');
@@ -55,13 +57,13 @@
       // mode: 'play' | 'pause' | 'complete'
       if (mode === 'pause') {
         primaryIcon.innerHTML = '<path d="M7 5v14M17 5v14"/>';
-        btnPrimary.setAttribute('aria-label', 'Pause timer');
+        btnPrimary.setAttribute('aria-label', 'Pause timer (Space)');
       } else if (mode === 'complete') {
         primaryIcon.innerHTML = '<path d="M5 13l4 4L19 7"/>';
-        btnPrimary.setAttribute('aria-label', 'Timer complete');
+        btnPrimary.setAttribute('aria-label', 'Timer complete (Space to reset)');
       } else {
         primaryIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-        btnPrimary.setAttribute('aria-label', mode === 'resume' ? 'Resume timer' : 'Start timer');
+        btnPrimary.setAttribute('aria-label', mode === 'resume' ? 'Resume timer (Space)' : 'Start timer (Space)');
       }
     }
 
@@ -75,6 +77,40 @@
     function setState(state, label) {
       stage.setAttribute('data-state', state);
       if (label) statusLabel.textContent = label;
+      persist();
+    }
+
+    function persist() {
+      const curState = stage.getAttribute('data-state');
+      if (curState === 'running' && engine) {
+        TimerHubTime.TimerHubState.save(STORAGE_KEY, {
+          state: 'running',
+          durationMs,
+          targetEndTime: engine.targetEndTime,
+          hours: hoursInput.value,
+          minutes: minutesInput.value,
+          seconds: secondsInput.value
+        });
+      } else if (curState === 'paused' && engine) {
+        TimerHubTime.TimerHubState.save(STORAGE_KEY, {
+          state: 'paused',
+          durationMs,
+          remainingMs: engine.remaining,
+          hours: hoursInput.value,
+          minutes: minutesInput.value,
+          seconds: secondsInput.value
+        });
+      } else if (curState === 'ready') {
+        TimerHubTime.TimerHubState.save(STORAGE_KEY, {
+          state: 'ready',
+          durationMs,
+          hours: hoursInput.value,
+          minutes: minutesInput.value,
+          seconds: secondsInput.value
+        });
+      } else {
+        TimerHubTime.TimerHubState.clear(STORAGE_KEY);
+      }
     }
 
     function goReady() {
@@ -100,18 +136,25 @@
       presetRow.style.pointerEvents = locked ? 'none' : '';
     }
 
-    function createEngine() {
+    function createEngine(resumeRemaining = null) {
+      if (engine) engine.destroy();
       engine = new TimerHubTime.TimerEngine({
         mode: 'countdown',
         durationMs,
-        onTick: (remaining) => renderTime(remaining),
+        onTick: (remaining) => {
+          renderTime(remaining);
+        },
         onComplete: onComplete,
       });
+      if (resumeRemaining !== null) {
+        engine.elapsedBeforeStart = durationMs - resumeRemaining;
+      }
     }
 
     function start() {
       if (durationMs <= 0) durationMs = getPickerDurationMs();
       if (durationMs <= 0) return;
+      TimerHubAudio.unlock();
       TimerHubAudio.beep();
       createEngine();
       engine.start();
@@ -130,6 +173,7 @@
 
     function resume() {
       if (!engine) return;
+      TimerHubAudio.unlock();
       TimerHubAudio.beep();
       engine.start();
       setState('running', 'Timer running');
@@ -144,6 +188,7 @@
       window.TimerHubToast('Timer complete');
       resetRow.style.display = 'flex';
       lockPickerUI(false);
+      TimerHubTime.TimerHubState.clear(STORAGE_KEY);
     }
 
     function resetToCurrentDuration() {
@@ -161,10 +206,12 @@
         engine.addTime(deltaMs);
         durationMs = Math.max(0, durationMs + deltaMs);
         renderTime(engine.remaining);
+        persist();
       } else {
         durationMs = Math.max(0, durationMs + deltaMs);
         setPickerFromMs(durationMs);
         renderTime(durationMs);
+        persist();
       }
     }
 
@@ -177,6 +224,7 @@
         durationMs = mins * 60 * 1000;
         setPickerFromMs(durationMs);
         renderTime(durationMs);
+        persist();
       });
     });
 
@@ -186,6 +234,7 @@
         presetRow.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
         durationMs = getPickerDurationMs();
         renderTime(durationMs);
+        persist();
       });
     });
 
@@ -205,25 +254,78 @@
     btnNew.addEventListener('click', goReady);
 
     // --- Sound toggle ---
-    soundToggle.addEventListener('click', () => {
-      const enabled = TimerHubAudio.toggle();
+    const updateSoundToggleUI = () => {
+      const enabled = TimerHubAudio.enabled;
       soundToggle.classList.toggle('is-active', enabled);
-      soundToggle.setAttribute('aria-label', enabled ? 'Sound on' : 'Sound off');
+      soundToggle.setAttribute('aria-label', enabled ? 'Sound on (M to mute, click settings to adjust)' : 'Sound off (M to unmute)');
       soundToggle.querySelector('svg').innerHTML = enabled
         ? '<path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/>'
         : '<path d="M11 5L6 9H3v6h3l5 4z"/><path d="M17 9l4 4M21 9l-4 4" stroke-linecap="round"/>';
+    };
+
+    soundToggle.addEventListener('click', (e) => {
+      // Primary click toggles mute
+      TimerHubAudio.toggle();
+      updateSoundToggleUI();
     });
-    if (!TimerHubAudio.enabled) {
-      soundToggle.classList.remove('is-active');
-      soundToggle.setAttribute('aria-label', 'Sound off');
-      soundToggle.querySelector('svg').innerHTML = '<path d="M11 5L6 9H3v6h3l5 4z"/><path d="M17 9l4 4M21 9l-4 4" stroke-linecap="round"/>';
-    }
+
+    window.addEventListener('timerhub:soundchange', updateSoundToggleUI);
+    updateSoundToggleUI();
 
     // --- Fullscreen ---
     window.TimerHubFullscreen();
 
-    // Initial render
-    renderTime(durationMs);
-    setState('ready', 'Ready to start');
+    // --- Restore State from LocalStorage ---
+    function restoreState() {
+      const saved = TimerHubTime.TimerHubState.load(STORAGE_KEY);
+      if (!saved) {
+        renderTime(durationMs);
+        setState('ready', 'Ready to start');
+        return;
+      }
+
+      if (saved.hours != null) hoursInput.value = saved.hours;
+      if (saved.minutes != null) minutesInput.value = saved.minutes;
+      if (saved.seconds != null) secondsInput.value = saved.seconds;
+      if (saved.durationMs) durationMs = saved.durationMs;
+
+      if (saved.state === 'running' && saved.targetEndTime) {
+        const remaining = saved.targetEndTime - Date.now();
+        if (remaining > 0) {
+          createEngine(remaining);
+          engine.start({ resumeRemaining: remaining });
+          setState('running', 'Timer running');
+          renderIcon('pause');
+          lockPickerUI(true);
+          resetRow.style.display = 'none';
+          window.TimerHubToast('Restored active countdown', 2000);
+          return;
+        } else {
+          // Finished while away
+          renderTime(0);
+          setState('complete', 'Timer complete');
+          renderIcon('complete');
+          resetRow.style.display = 'flex';
+          lockPickerUI(false);
+          window.TimerHubToast('Timer completed while tab was closed', 4000);
+          TimerHubTime.TimerHubState.clear(STORAGE_KEY);
+          return;
+        }
+      } else if (saved.state === 'paused' && saved.remainingMs != null) {
+        createEngine(saved.remainingMs);
+        renderTime(saved.remainingMs);
+        setState('paused', 'Timer paused');
+        renderIcon('resume');
+        lockPickerUI(true);
+        resetRow.style.display = 'none';
+        return;
+      }
+
+      // Default ready
+      renderTime(durationMs);
+      setState('ready', 'Ready to start');
+    }
+
+    restoreState();
   }
 })();

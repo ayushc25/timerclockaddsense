@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About TimerHub</title>
-<meta name="description" content="TimerHub is one calm, accurate home for every kind of timer you need — focus, fitness, cooking, meetings and everyday life — free and without sign-up.">
+<title>About TimerHub — Mission, Engineering &amp; Editorial Standards</title>
+<meta name="description" content="TimerHub provides calm, high-precision browser timing tools for focus, fitness, cooking, meetings, and routines. Learn about our mission, timing accuracy methodology, and editorial standards.">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,15 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/timer.css">
 <link rel="stylesheet" href="css/home.css">
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('timerhub_theme');
+      if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch(e){}
+  })();
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -33,6 +42,10 @@
       </div>
     </nav>
     <div class="header-actions">
+      <button class="theme-toggle-btn" type="button" aria-label="Toggle dark/light theme" title="Toggle theme (Alt+T)">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <a href="tools/timer.html" class="btn btn-accent">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
         Start Timer
@@ -58,6 +71,13 @@
     <a href="templates/index.html">Templates</a>
     <a href="blog/index.html">Blog</a>
   </nav>
+  <div style="display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-xs);">
+    <span style="font-size: var(--fs-sm); font-weight: 600;">Theme</span>
+    <button class="theme-toggle-btn" type="button" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
   <a href="tools/timer.html" class="btn btn-accent btn-block btn-lg">Start Timer</a>
 </div>
 
@@ -75,22 +95,35 @@
       About TimerHub
     </span>
     <h1>One calm home for every kind of timer</h1>
-    <p class="lede">TimerHub exists because people constantly need to time things — cooking, working, exercising, meeting, meditating — and deserve one well-built place to do it, instead of a dozen mediocre single-purpose timer sites.</p>
+    <p class="lede">TimerHub exists because people constantly need to time things — cooking, working, exercising, meeting, meditating — and deserve one reliable, beautifully engineered place to do it.</p>
   </section>
 
   <section class="section container">
     <div class="blog-post-body">
-      <h2>What TimerHub is</h2>
-      <p>TimerHub is a collection of dedicated, purpose-built timing tools — a stopwatch, a countdown timer, a Pomodoro timer, an interval timer, an alarm, a chess clock, a metronome and more — brought together under one consistent, calm interface. Each tool is built specifically for the task it serves rather than adapted from a generic "set a number and count down" template, because a workout interval timer and a meeting countdown genuinely need different controls, defaults and visual emphasis.</p>
+      <h2>Our Mission &amp; Philosophy</h2>
+      <p>Almost everyone needs a timer multiple times a week — whether timing a study session with the Pomodoro technique, pacing high-intensity interval sets, keeping a kitchen dish from burning, or facilitating a structured team meeting. Yet most web-based timers today are cluttered with intrusive pop-up ads, clunky interfaces, or buggy timing logic that freezes when you change tabs.</p>
+      <p>TimerHub was built from the ground up to solve this. We believe utility software should be calm, distraction-free, instantaneous to use, and mathematically accurate.</p>
 
-      <h2>Why it was built</h2>
-      <p>Almost everyone ends up needing a timer at some point in a normal day — a kettle boiling, a focused work block, a set of intervals at the gym, a talk that needs to end on time, a few minutes of quiet before bed. The usual solution is a phone's built-in clock app, or whichever search result loads fastest, often cluttered with intrusive ads, unreliable timing, or interfaces that make a simple task feel unnecessarily complicated. TimerHub was built on the premise that this small, recurring need deserves a genuinely well-designed answer: accurate, calm, and built once, properly, rather than solved from scratch every time.</p>
+      <h2>Engineering for Absolute Precision</h2>
+      <p>Most simple web timers rely on naïve <code>setInterval</code> counters. When a browser tab is placed in the background or minimized, modern operating systems throttle or pause JavaScript execution to save battery power, causing standard timers to lose seconds or even minutes. TimerHub solves this through three layers of timing architecture:</p>
+      <ul>
+        <li><strong>Wall-Clock Drift Correction:</strong> Timers calculate elapsed time by measuring actual millisecond deltas against hardware <code>Date.now()</code> timestamps rather than counting interval cycles.</li>
+        <li><strong>Background Web Worker Tickers:</strong> Critical timer updates run on an isolated Web Worker thread, allowing countdowns to continue ticking and alert chimes to trigger promptly even when tabs are hidden.</li>
+        <li><strong>Tab Visibility Re-sync:</strong> The moment a user switches back to TimerHub, our engine immediately synchronizes with true system time, adjusting displays and firing pending events without delay.</li>
+      </ul>
 
-      <h2>What makes it different</h2>
-      <p>Three things distinguish TimerHub from the alternatives most people currently use. First, accuracy: every tool runs on a timestamp-based timing engine rather than a simple counter, so the time shown stays correct even if a browser tab is left in the background or the device sleeps briefly — a common failure point in simpler timers. Second, calm design: a light, uncluttered interface built around clear typography and generous spacing, so the tool gets out of your way instead of competing for attention while you're trying to focus. Third, accessibility: every tool is free, requires no account or sign-up, and runs entirely in your browser — nothing to install, nothing to configure beyond the task at hand.</p>
+      <h2>Sound Engineering &amp; Web Audio</h2>
+      <p>Browser autoplay restrictions often silence completion sounds if audio isn't initialized through a deliberate gesture. TimerHub utilizes an in-browser Web Audio API synthesis system. Audio contexts are pre-primed on your initial interaction, producing rich harmonic sine chimes, meditative bells, and alarm sequences without external audio file loading latency.</p>
 
-      <h2>Built for the moment you're in</h2>
-      <p>Whether you're running a Pomodoro session, timing a workout, or just need a plain countdown for something in the oven, TimerHub aims to be the tool you reach for without a second thought — and the one you keep coming back to because it simply works the way you'd hope it would.</p>
+      <h2>Accessibility &amp; Keyboard Control</h2>
+      <p>We believe digital tools must be accessible to everyone. TimerHub is built with semantic HTML5 elements, high-contrast visual indicators, screen-reader ARIA live regions, and global keyboard shortcuts (including <kbd>Space</kbd> to Start/Pause, <kbd>R</kbd> to Reset, <kbd>M</kbd> to Mute, and <kbd>F</kbd> for Fullscreen mode).</p>
+
+      <h2>Our Business Model &amp; Editorial Independence</h2>
+      <p>TimerHub is 100% free for everyone. We do not charge subscription fees, gate essential features behind paywalls, or force users to register accounts. To support development, hosting, and ongoing maintenance, we display restrained, clearly marked advertisements provided by reputable partners like Google AdSense.</p>
+      <p>We enforce strict ad placement guidelines: ads are placed in designated slots outside interactive control clusters to avoid accidental clicks, and we strictly prohibit deceptive download traps or intrusive interstitial overlays.</p>
+
+      <h2>Get in Touch</h2>
+      <p>We actively listen to user feedback, bug reports, and suggestions for new routine templates. If you have questions or ideas, reach out through our <a href="contact.html">Contact Page</a> or write directly to our editorial team at <a href="mailto:editor@timerhub.io">editor@timerhub.io</a>.</p>
     </div>
 
     <div style="text-align:center; margin-top: var(--space-2xl);">

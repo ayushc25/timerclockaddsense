@@ -1,5 +1,6 @@
 /* ==========================================================================
    TimerHub Design Tokens
+   Warm, editorial light theme & serene warm obsidian dark theme
    ========================================================================== */
 
 :root {
@@ -19,7 +20,7 @@
   --color-border: #E7E3DC;
   --color-border-strong: #D8D3C9;
 
-  /* Color — accent (muted amber/terracotta, restrained) */
+  /* Color — accent (warm terracotta / ember) */
   --color-accent: #B4633A;
   --color-accent-strong: #9C5330;
   --color-accent-soft: #F3E4D9;
@@ -53,8 +54,7 @@
   --fs-sm: 0.9rem;
   --fs-xs: 0.78rem;
 
-  /* Timer digit scale — capped to always fit inside .timer-ring-wrap
-     (max diameter ~360px) even for 8-character H:MM:SS displays */
+  /* Timer digit scale */
   --fs-timer-xl: clamp(2.1rem, 8vw, 3.4rem);
   --fs-timer-lg: clamp(1.8rem, 6vw, 2.6rem);
 
@@ -94,6 +94,70 @@
   --header-h-scrolled: 68px;
 }
 
+/* Explicit Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #141312;
+  --color-bg-alt: #1C1B18;
+  --color-surface: #23211E;
+  --color-surface-raised: #2C2925;
+
+  --color-ink: #F6F4EF;
+  --color-ink-soft: #D6D1C6;
+  --color-ink-muted: #9C968B;
+  --color-ink-faint: #6B665E;
+
+  --color-border: #36322C;
+  --color-border-strong: #48433B;
+
+  --color-accent: #E07D4A;
+  --color-accent-strong: #F29563;
+  --color-accent-soft: #382418;
+  --color-accent-ink: #FFFFFF;
+
+  --color-success: #5B9B74;
+  --color-success-soft: #1D2D23;
+  --color-warning: #D9A644;
+  --color-warning-soft: #362C18;
+  --color-danger: #D95B4E;
+  --color-danger-soft: #381E1C;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.65), 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* System preference fallback when no explicit data-theme is set */
 @media (prefers-color-scheme: dark) {
-  /* Reserved: TimerHub is intentionally light-first. Dark mode not enabled by default. */
+  :root:not([data-theme="light"]) {
+    --color-bg: #141312;
+    --color-bg-alt: #1C1B18;
+    --color-surface: #23211E;
+    --color-surface-raised: #2C2925;
+
+    --color-ink: #F6F4EF;
+    --color-ink-soft: #D6D1C6;
+    --color-ink-muted: #9C968B;
+    --color-ink-faint: #6B665E;
+
+    --color-border: #36322C;
+    --color-border-strong: #48433B;
+
+    --color-accent: #E07D4A;
+    --color-accent-strong: #F29563;
+    --color-accent-soft: #382418;
+    --color-accent-ink: #FFFFFF;
+
+    --color-success: #5B9B74;
+    --color-success-soft: #1D2D23;
+    --color-warning: #D9A644;
+    --color-warning-soft: #362C18;
+    --color-danger: #D95B4E;
+    --color-danger-soft: #381E1C;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.45);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.65), 0 4px 12px rgba(0, 0, 0, 0.45);
+  }
 }
