@@ -31,8 +31,7 @@
     };
 
     const saved = getSavedTheme();
-    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const currentTheme = saved || (systemDark ? 'dark' : 'light');
+    const currentTheme = saved === 'dark' ? 'dark' : 'light';
 
     document.documentElement.setAttribute('data-theme', currentTheme);
 
@@ -54,17 +53,6 @@
         window.TimerHubToast && window.TimerHubToast(nowTheme === 'dark' ? 'Dark theme enabled' : 'Light theme enabled', 1800);
       });
     });
-
-    // Listen for system theme changes if user hasn't explicitly set a preference
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!getSavedTheme()) {
-          const newSysTheme = e.matches ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', newSysTheme);
-          updateToggleLabels(newSysTheme);
-        }
-      });
-    }
   }
 
   /* ---------- Header Scroll ---------- */

@@ -19,8 +19,8 @@
   (function(){
     try {
       var t = localStorage.getItem('timerhub_theme');
-      if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
-      if (t) document.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
     } catch(e){}
   })();
 </script>
@@ -99,6 +99,10 @@
     </span>
     <h1>Chain your timers into one routine</h1>
     <p class="lede">A routine is a pre-built sequence of timer stages that runs automatically, one after another — so instead of starting a Focus timer, watching it finish, then manually starting a Break timer, and repeating that all afternoon, you press Start Routine once and TimerHub carries you through every stage, with a chime at each transition.</p>
+  </section>
+
+  <section class="container" style="padding-block: 0 var(--space-xl);" data-routines-view>
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
   </section>
 
   <section class="container" data-routines-view>

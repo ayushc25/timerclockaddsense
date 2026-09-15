@@ -29,6 +29,15 @@
     .timer-controls { gap: var(--space-md); }
   }
 </style>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('timerhub_theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    } catch(e){}
+  })();
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

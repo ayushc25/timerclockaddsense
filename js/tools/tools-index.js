@@ -34,6 +34,12 @@
         if (visible) visibleCount++;
       });
 
+      const isFiltering = activeCategory !== 'all' || Boolean(query);
+      const adBreaks = grid.querySelectorAll('.ad-slot-break');
+      adBreaks.forEach((ad) => {
+        ad.style.display = isFiltering ? 'none' : '';
+      });
+
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
       grid.style.display = visibleCount === 0 ? 'none' : '';
     }

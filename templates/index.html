@@ -18,8 +18,8 @@
   (function(){
     try {
       var t = localStorage.getItem('timerhub_theme');
-      if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
-      if (t) document.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
     } catch(e){}
   })();
 </script>
@@ -96,6 +96,10 @@
     </span>
     <h1>One-tap starting points for common timing needs</h1>
     <p class="lede">A template is a single, ready-configured timer — the right duration and mode already dialed in — that drops you straight into the matching tool page. No setup, no dialing in numbers: pick a template and start immediately.</p>
+  </section>
+
+  <section class="container" style="padding-block: 0 var(--space-xl);">
+    <div class="ad-slot ad-slot-wide" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
   </section>
 
   <!-- Template links carry query params (e.g. ?minutes=25&label=Study) that the destination

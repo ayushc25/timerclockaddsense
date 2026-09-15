@@ -331,67 +331,187 @@
   transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out);
 }
 
+/* ---------- Organic Illustrated Tool Cards & Logos (Editorial Aesthetic) ---------- */
+
+:root {
+  --tool-blob-outer: #FCEADE;
+  --tool-blob-inner: #F6D0BA;
+  --tool-glyph: #9C512D;
+  --tool-card-corner-blob: radial-gradient(circle at 100% 0%, #FAF0E7 0%, rgba(250, 240, 231, 0.45) 55%, transparent 72%);
+  --tool-card-cta-bg: #FBF1EB;
+  --tool-card-cta-color: #9C512D;
+  --tool-card-cta-hover-bg: #F5DECFA;
+}
+
+[data-theme="dark"] {
+  --tool-blob-outer: rgba(224, 125, 74, 0.20);
+  --tool-blob-inner: rgba(224, 125, 74, 0.35);
+  --tool-glyph: #F29563;
+  --tool-card-corner-blob: radial-gradient(circle at 100% 0%, rgba(224, 125, 74, 0.14) 0%, rgba(224, 125, 74, 0.04) 55%, transparent 72%);
+  --tool-card-cta-bg: rgba(224, 125, 74, 0.15);
+  --tool-card-cta-color: #F29563;
+  --tool-card-cta-hover-bg: rgba(224, 125, 74, 0.25);
+}
+
 .tool-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  padding: var(--space-xl);
+  padding: 30px 28px 26px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(35, 33, 30, 0.03), 0 1px 3px rgba(35, 33, 30, 0.02);
+  transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out);
+  text-decoration: none;
   height: 100%;
 }
-.tool-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--color-border-strong); }
+
+/* Faint organic top-right corner blush */
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: var(--tool-card-corner-blob);
+  border-radius: 0 24px 0 100px;
+  pointer-events: none;
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-med) var(--ease-out);
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 38px -6px rgba(180, 99, 58, 0.14), 0 4px 14px rgba(35, 33, 30, 0.04);
+  border-color: rgba(180, 99, 58, 0.35);
+}
+
+.tool-card:hover::before {
+  transform: scale(1.12);
+  opacity: 0.9;
+}
+
+/* Tool icon container */
 .tool-card .tool-icon {
-  width: 68px; height: 68px;
-  border-radius: 18px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, #FDF0E6 0%, #F5D7C3 100%);
-  border: 1.5px solid rgba(180, 99, 58, 0.22);
-  color: var(--color-accent-strong);
-  box-shadow: 0 8px 20px -4px rgba(180, 99, 58, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out), background var(--dur-med) var(--ease-out);
+  width: 96px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin-bottom: 2px;
+  transition: transform var(--dur-med) var(--ease-out);
 }
+
 .tool-card .tool-icon svg {
-  width: 36px; height: 36px;
-  stroke-width: 2.1;
-  filter: drop-shadow(0 1px 2px rgba(180, 99, 58, 0.15));
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 4px 12px rgba(180, 99, 58, 0.09));
+  transition: transform var(--dur-med) var(--ease-out);
 }
-.tool-card:hover .tool-icon {
-  transform: scale(1.08) translateY(-2px);
-  background: linear-gradient(135deg, #FCE6D6 0%, #EFCAB0 100%);
-  border-color: rgba(180, 99, 58, 0.40);
-  box-shadow: 0 12px 26px -4px rgba(180, 99, 58, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  color: var(--color-accent-strong);
+
+.tool-card:hover .tool-icon svg {
+  transform: scale(1.05) translateY(-2px);
 }
-.tool-card h3 { margin-top: var(--space-xs); }
-.tool-card p { font-size: var(--fs-sm); flex: 1; }
+
+/* SVG classes */
+.logo-badge .blob-outer {
+  fill: var(--tool-blob-outer);
+  transition: fill var(--dur-fast) var(--ease-standard);
+}
+.logo-badge .blob-inner {
+  fill: var(--tool-blob-inner);
+  transition: fill var(--dur-fast) var(--ease-standard);
+}
+.logo-badge .icon-stroke {
+  stroke: var(--tool-glyph);
+  transition: stroke var(--dur-fast) var(--ease-standard);
+}
+.logo-badge .icon-glyph {
+  fill: var(--tool-glyph);
+  transition: fill var(--dur-fast) var(--ease-standard);
+}
+.logo-badge .icon-accent {
+  fill: var(--tool-glyph);
+  stroke: var(--tool-glyph);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.tool-card h3 {
+  font-size: 1.34rem;
+  font-weight: 750;
+  color: var(--color-ink);
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.tool-card p {
+  font-size: 0.90rem;
+  line-height: 1.54;
+  color: var(--color-ink-muted);
+  margin: 0;
+  flex: 1;
+}
+
+/* Pill-shaped CTA button matching screenshot */
 .tool-card .card-cta {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2xs);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  background: var(--tool-card-cta-bg);
+  color: var(--tool-card-cta-color);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--color-ink);
+  border: 1px solid rgba(180, 99, 58, 0.12);
+  transition: all var(--dur-fast) var(--ease-standard);
+  margin-top: var(--space-xs);
 }
-.tool-card .card-cta svg { width: 15px; height: 15px; transition: transform var(--dur-fast) var(--ease-standard); }
-.tool-card:hover .card-cta svg { transform: translateX(3px); }
+
+.tool-card .card-cta svg,
+.tool-card .card-cta .cta-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.tool-card:hover .card-cta {
+  background: var(--tool-card-cta-hover-bg);
+  color: var(--tool-glyph);
+  border-color: rgba(180, 99, 58, 0.28);
+}
+
+.tool-card:hover .card-cta svg,
+.tool-card:hover .card-cta .cta-arrow {
+  transform: translateX(4px);
+}
 
 @media (max-width: 640px) {
   .tool-card {
-    padding: var(--space-lg);
+    padding: 22px 20px 20px;
+    border-radius: 20px;
     gap: var(--space-sm);
   }
   .tool-card .tool-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
-  }
-  .tool-card .tool-icon svg {
-    width: 32px;
-    height: 32px;
+    width: 84px;
+    height: 74px;
   }
   .tool-card h3 {
-    font-size: 1.22rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -400,13 +520,8 @@
     padding: var(--space-md);
   }
   .tool-card .tool-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-  }
-  .tool-card .tool-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 76px;
+    height: 66px;
   }
 }
 
@@ -660,17 +775,6 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .site-header {
-    background: rgba(20, 19, 18, 0.82);
-  }
-  :root:not([data-theme="light"]) .site-header.is-scrolled {
-    background: rgba(20, 19, 18, 0.95);
-    border-color: var(--color-border);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
-  }
-}
-
 /* ---------- Theme Switcher Button ---------- */
 
 .theme-toggle-btn {
@@ -705,11 +809,6 @@
 
 [data-theme="dark"] .icon-sun { display: block; }
 [data-theme="dark"] .icon-moon { display: none; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icon-sun { display: block; }
-  :root:not([data-theme="light"]) .icon-moon { display: none; }
-}
 
 /* ---------- Accessibility & Modals Base ---------- */
 
@@ -1070,11 +1169,5 @@
   color: var(--color-accent-strong);
 }
 
-[data-theme="dark"] .tool-card .tool-icon {
-  background: linear-gradient(135deg, rgba(224, 125, 74, 0.22) 0%, rgba(224, 125, 74, 0.08) 100%);
-  border-color: rgba(224, 125, 74, 0.4);
-  color: var(--color-accent);
-  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
 
 

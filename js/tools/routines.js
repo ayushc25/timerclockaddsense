@@ -188,9 +188,10 @@
   function renderGrid(filter) {
     if (!grid) return;
     grid.innerHTML = '';
-    ROUTINES.filter((r) => filter === 'all' || r.category === filter).forEach((routine) => {
+    const filtered = ROUTINES.filter((r) => filter === 'all' || r.category === filter);
+    filtered.forEach((routine, idx) => {
       const card = document.createElement('div');
-      card.className = 'card routine-card';
+      card.className = 'card routine-card reveal';
       const rows = summarizeStages(routine.stages);
       card.innerHTML = `
         <span class="badge badge-accent">${routine.category}</span>
@@ -208,7 +209,25 @@
         </div>
       `;
       grid.appendChild(card);
+
+      if (filter === 'all' && (idx === 2 || idx === 5)) {
+        const ad = document.createElement('div');
+        ad.className = 'ad-slot ad-slot-wide ad-slot-break reveal';
+        ad.setAttribute('role', 'complementary');
+        ad.setAttribute('aria-label', 'Advertisement placeholder');
+        ad.textContent = 'Advertisement Space';
+        grid.appendChild(ad);
+      }
     });
+
+    if (filtered.length > 0) {
+      const adEnd = document.createElement('div');
+      adEnd.className = 'ad-slot ad-slot-wide ad-slot-break reveal';
+      adEnd.setAttribute('role', 'complementary');
+      adEnd.setAttribute('aria-label', 'Advertisement placeholder');
+      adEnd.textContent = 'Advertisement Space';
+      grid.appendChild(adEnd);
+    }
   }
 
   if (chips.length) {

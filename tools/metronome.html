@@ -40,6 +40,15 @@
   }
   .metronome-page .volume-field { width: 100%; max-width: 320px; }
 </style>
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('timerhub_theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    } catch(e){}
+  })();
+</script>
 </head>
 <body class="tool-page metronome-page">
 <a class="skip-link" href="#main">Skip to content</a>

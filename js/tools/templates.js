@@ -71,14 +71,27 @@
   const grid = document.querySelector('[data-template-grid]');
   if (!grid) return;
 
-  grid.innerHTML = TEMPLATES.map((t) => `
-    <a href="${t.href}" class="card template-card reveal">
-      <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${ICONS[t.icon]}</svg></div>
-      <div class="template-meta">
-        <h3>${t.title}</h3>
-        <p>${t.description}</p>
-      </div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="flex-shrink:0;color:var(--color-ink-faint);"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  `).join('');
+  const cardsHtml = [];
+  TEMPLATES.forEach((t, idx) => {
+    cardsHtml.push(`
+      <a href="${t.href}" class="card template-card reveal">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${ICONS[t.icon]}</svg></div>
+        <div class="template-meta">
+          <h3>${t.title}</h3>
+          <p>${t.description}</p>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="flex-shrink:0;color:var(--color-ink-faint);"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    `);
+    if (idx === 2 || idx === 5) {
+      cardsHtml.push(`
+        <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+      `);
+    }
+  });
+  cardsHtml.push(`
+    <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+  `);
+
+  grid.innerHTML = cardsHtml.join('');
 })();
