@@ -188,10 +188,30 @@
   function renderGrid(filter) {
     if (!grid) return;
     grid.innerHTML = '';
-    const filtered = ROUTINES.filter((r) => filter === 'all' || r.category === filter);
+    const normFilter = (filter || 'all').toLowerCase();
+    const filtered = ROUTINES.filter((r) => normFilter === 'all' || r.category.toLowerCase() === normFilter);
+
+    if (filtered.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.style.gridColumn = '1 / -1';
+      empty.style.textAlign = 'center';
+      empty.style.padding = 'var(--space-2xl) var(--space-md)';
+      empty.innerHTML = `
+        <p style="color: var(--color-ink-muted); font-size: var(--fs-md); margin-bottom: var(--space-sm);">No routines found in this category.</p>
+        <button class="btn btn-secondary" type="button" data-reset-category>View All Routines</button>
+      `;
+      grid.appendChild(empty);
+      empty.querySelector('[data-reset-category]').addEventListener('click', () => {
+        chips.forEach((c) => c.classList.toggle('is-active', (c.getAttribute('data-category') || '').toLowerCase() === 'all'));
+        renderGrid('all');
+      });
+      return;
+    }
+
     filtered.forEach((routine, idx) => {
       const card = document.createElement('div');
-      card.className = 'card routine-card reveal';
+      card.className = 'card routine-card is-visible';
       const rows = summarizeStages(routine.stages);
       card.innerHTML = `
         <span class="badge badge-accent">${routine.category}</span>
@@ -210,9 +230,9 @@
       `;
       grid.appendChild(card);
 
-      if (filter === 'all' && (idx === 2 || idx === 5)) {
+      if (normFilter === 'all' && (idx === 2 || idx === 5)) {
         const ad = document.createElement('div');
-        ad.className = 'ad-slot ad-slot-wide ad-slot-break reveal';
+        ad.className = 'ad-slot ad-slot-wide ad-slot-break is-visible';
         ad.setAttribute('role', 'complementary');
         ad.setAttribute('aria-label', 'Advertisement placeholder');
         ad.textContent = 'Advertisement Space';
@@ -222,25 +242,45 @@
 
     if (filtered.length > 0) {
       const adEnd = document.createElement('div');
-      adEnd.className = 'ad-slot ad-slot-wide ad-slot-break reveal';
+      adEnd.className = 'ad-slot ad-slot-wide ad-slot-break is-visible';
       adEnd.setAttribute('role', 'complementary');
       adEnd.setAttribute('aria-label', 'Advertisement placeholder');
       adEnd.textContent = 'Advertisement Space';
       grid.appendChild(adEnd);
     }
+
+    if (window.TimerHubInitScrollReveal) {
+      window.TimerHubInitScrollReveal();
+    }
   }
 
   if (chips.length) {
     chips.forEach((chip) => {
-      chip.addEventListener('click', () => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
         chips.forEach((c) => c.classList.remove('is-active'));
         chip.classList.add('is-active');
-        renderGrid(chip.getAttribute('data-category'));
+        const category = chip.getAttribute('data-category') || 'all';
+        renderGrid(category);
       });
     });
   }
 
-  renderGrid('all');
+  // Check URL hash if directly linking to a category, e.g. routines/index.html#fitness
+  const initialHash = (window.location.hash || '').replace('#', '').trim().toLowerCase();
+  let initialCategory = 'all';
+  if (initialHash) {
+    const matchingChip = Array.from(chips).find(
+      (c) => (c.getAttribute('data-category') || '').toLowerCase() === initialHash
+    );
+    if (matchingChip) {
+      chips.forEach((c) => c.classList.remove('is-active'));
+      matchingChip.classList.add('is-active');
+      initialCategory = initialHash;
+    }
+  }
+
+  renderGrid(initialCategory);
 
   if (grid) {
     grid.addEventListener('click', (e) => {

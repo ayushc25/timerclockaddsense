@@ -12,9 +12,16 @@
   function loadPrefs() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const p = JSON.parse(raw);
+        // Automatically upgrade old default 'chime' to 'alarm' unless explicitly customized
+        if (p && (!p.soundType || (p.soundType === 'chime' && !p._userExplicit))) {
+          p.soundType = 'alarm';
+        }
+        return p;
+      }
     } catch (e) { /* ignore */ }
-    return { enabled: true, volume: 0.65, soundType: 'chime' };
+    return { enabled: true, volume: 0.7, soundType: 'alarm' };
   }
 
   function savePrefs(prefs) {
@@ -88,7 +95,7 @@
       this._emitChange();
     }
 
-    get volume() { return typeof this.prefs.volume === 'number' ? this.prefs.volume : 0.65; }
+    get volume() { return typeof this.prefs.volume === 'number' ? this.prefs.volume : 0.7; }
     set volume(v) {
       const vol = Math.max(0, Math.min(1, Number(v) || 0));
       this.prefs.volume = vol;
@@ -100,9 +107,10 @@
       this._emitChange();
     }
 
-    get soundType() { return this.prefs.soundType || 'chime'; }
+    get soundType() { return this.prefs.soundType || 'alarm'; }
     set soundType(t) {
       this.prefs.soundType = t;
+      this.prefs._userExplicit = true;
       savePrefs(this.prefs);
       this._emitChange();
     }
@@ -133,7 +141,7 @@
       if (glideTo) osc.frequency.linearRampToValueAtTime(glideTo, startAt + duration);
 
       g.gain.setValueAtTime(0, startAt);
-      g.gain.linearRampToValueAtTime(gain, startAt + 0.012);
+      g.gain.linearRampToValueAtTime(gain, startAt + 0.008);
       g.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
 
       osc.connect(g);
@@ -144,7 +152,7 @@
     }
 
     /** Short single beep — used for interval / tick cues */
-    beep() { this._tone({ freq: 720, duration: 0.09, type: 'sine', gain: 0.45 }); }
+    beep() { this._tone({ freq: 880, duration: 0.09, type: 'triangle', gain: 0.5 }); }
 
     /** Soft click — metronome default beat */
     click() { this._tone({ freq: 1000, duration: 0.045, type: 'square', gain: 0.35 }); }
@@ -152,20 +160,38 @@
     /** Accented click — metronome downbeat */
     accentClick() { this._tone({ freq: 1400, duration: 0.05, type: 'square', gain: 0.5 }); }
 
-    /** Warm ascending chime — timer/session completion */
+    /** Alarming timer/session completion alert tone */
     complete() {
-      const type = this.prefs.soundType || 'chime';
+      const type = this.prefs.soundType || 'alarm';
       if (type === 'bell') {
         this.bell();
       } else if (type === 'digital') {
-        this._tone({ freq: 1046.5, duration: 0.12, type: 'triangle', gain: 0.5 });
-        this._tone({ freq: 1046.5, duration: 0.12, type: 'triangle', gain: 0.5, delay: 0.16 });
-        this._tone({ freq: 1318.5, duration: 0.28, type: 'triangle', gain: 0.55, delay: 0.32 });
-      } else {
-        // Classic ascending chime
+        this._tone({ freq: 1046.5, duration: 0.1, type: 'triangle', gain: 0.55 });
+        this._tone({ freq: 1046.5, duration: 0.1, type: 'triangle', gain: 0.55, delay: 0.14 });
+        this._tone({ freq: 1318.5, duration: 0.1, type: 'triangle', gain: 0.58, delay: 0.28 });
+        this._tone({ freq: 1567.98, duration: 0.26, type: 'triangle', gain: 0.62, delay: 0.42 });
+      } else if (type === 'beep') {
+        // Fast urgent 4-beep alarm pattern
+        this._tone({ freq: 987.77, duration: 0.1, type: 'triangle', gain: 0.58, delay: 0 });
+        this._tone({ freq: 987.77, duration: 0.1, type: 'triangle', gain: 0.58, delay: 0.15 });
+        this._tone({ freq: 987.77, duration: 0.1, type: 'triangle', gain: 0.58, delay: 0.30 });
+        this._tone({ freq: 1318.51, duration: 0.28, type: 'triangle', gain: 0.65, delay: 0.45 });
+      } else if (type === 'chime') {
+        // Gentle ascending chime (sweet & calm)
         this._tone({ freq: 523.25, duration: 0.22, type: 'sine', gain: 0.5, delay: 0 });
         this._tone({ freq: 659.25, duration: 0.24, type: 'sine', gain: 0.5, delay: 0.14 });
         this._tone({ freq: 783.99, duration: 0.34, type: 'sine', gain: 0.55, delay: 0.28 });
+      } else {
+        // Default: 'alarm' — Attention-grabbing double-burst digital timer alarm
+        // Burst 1: Alert pulses
+        this._tone({ freq: 987.77, duration: 0.10, type: 'triangle', gain: 0.60, delay: 0 });
+        this._tone({ freq: 987.77, duration: 0.10, type: 'triangle', gain: 0.60, delay: 0.13 });
+        // Burst 2: Higher pitch urgent alert
+        this._tone({ freq: 1174.66, duration: 0.10, type: 'triangle', gain: 0.62, delay: 0.32 });
+        this._tone({ freq: 1174.66, duration: 0.10, type: 'triangle', gain: 0.62, delay: 0.45 });
+        // Burst 3: Climax alert chime
+        this._tone({ freq: 1318.51, duration: 0.12, type: 'triangle', gain: 0.65, delay: 0.64 });
+        this._tone({ freq: 1567.98, duration: 0.32, type: 'triangle', gain: 0.70, delay: 0.78 });
       }
     }
 
@@ -182,7 +208,7 @@
     }
 
     /** Sound preview helper for settings UI */
-    preview(type = this.prefs.soundType || 'chime') {
+    preview(type = this.prefs.soundType || 'alarm') {
       const prevType = this.prefs.soundType;
       this.prefs.soundType = type;
       this.complete();

@@ -163,7 +163,7 @@
 
   /* ---------- Scroll Reveal ---------- */
   function initScrollReveal() {
-    const targets = document.querySelectorAll('.reveal');
+    const targets = document.querySelectorAll('.reveal:not(.is-visible)');
     if (!targets.length) return;
     if (!('IntersectionObserver' in window)) {
       targets.forEach((t) => t.classList.add('is-visible'));
@@ -179,6 +179,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     targets.forEach((t) => io.observe(t));
   }
+  window.TimerHubInitScrollReveal = initScrollReveal;
 
   /* ---------- Year helper ---------- */
   function initYear() {
@@ -372,17 +373,18 @@
             </div>
             <div class="setting-item">
               <div class="setting-label-row">
-                <span class="setting-label">Completion Chime</span>
+                <span class="setting-label">Completion Alert Sound</span>
                 <button class="btn btn-sm btn-secondary" id="btn-sound-preview">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
                   Preview
                 </button>
               </div>
               <div class="sound-type-grid" id="sound-type-selector">
-                <button class="sound-choice-btn" data-sound-type="chime">Ascending Chime</button>
-                <button class="sound-choice-btn" data-sound-type="bell">Zen Bell</button>
+                <button class="sound-choice-btn is-featured" data-sound-type="alarm">Timer Alarm (Alerting)</button>
+                <button class="sound-choice-btn" data-sound-type="beep">Urgent Beep</button>
                 <button class="sound-choice-btn" data-sound-type="digital">Digital Pulse</button>
-                <button class="sound-choice-btn" data-sound-type="beep">Clean Beep</button>
+                <button class="sound-choice-btn" data-sound-type="chime">Gentle Chime</button>
+                <button class="sound-choice-btn" data-sound-type="bell">Zen Bell</button>
               </div>
             </div>
           </div>

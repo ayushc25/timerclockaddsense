@@ -186,6 +186,7 @@
   transform: translateY(-8px);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out), visibility 0s var(--dur-med), top var(--dur-med) var(--ease-standard);
 }
 .site-header.is-scrolled ~ .mobile-drawer {
@@ -195,6 +196,7 @@
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out), visibility 0s;
 }
 .mobile-drawer-header {
@@ -581,13 +583,18 @@
 
 /* ---------- Chips / filters ---------- */
 
-.chip-row { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+}
 @media (max-width: 480px) {
-  .chip-row { gap: 6px; }
+  .chip-row { gap: 8px; }
   .chip {
-    font-size: 0.74rem;
-    padding: 0.45em 0.85em;
-    min-height: 32px;
+    font-size: 0.78rem;
+    padding: 0.45em 0.9em;
+    min-height: 36px;
   }
 }
 .chip {
@@ -603,8 +610,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  font-family: inherit;
 }
 .chip:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.chip:active { transform: scale(0.96); }
 .chip.is-active { background: var(--color-ink); color: var(--color-bg); border-color: var(--color-ink); }
 
 /* ---------- FAQ Accordion ---------- */
@@ -994,6 +1007,10 @@
   background: var(--color-accent-soft);
   border-color: var(--color-accent);
   color: var(--color-accent-strong);
+}
+.sound-choice-btn.is-featured {
+  grid-column: 1 / -1;
+  font-weight: 700;
 }
 
 /* ---------- Cookie & Privacy Consent Banner ---------- */

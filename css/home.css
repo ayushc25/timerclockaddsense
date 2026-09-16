@@ -299,6 +299,8 @@
   flex-direction: column;
   gap: var(--space-lg);
   margin-bottom: var(--space-2xl);
+  position: relative;
+  z-index: 2;
 }
 
 @media (max-width: 640px) {
@@ -310,7 +312,26 @@
 
 /* ---------- Routine / template cards ---------- */
 
-.routine-card { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+.routine-card {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  animation: routineCardFade 0.22s var(--ease-out);
+}
+@keyframes routineCardFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .routine-card { animation: none; }
+}
 .routine-stage-list { display: flex; flex-direction: column; gap: 6px; }
 .routine-stage {
   display: flex; align-items: center; justify-content: space-between;
