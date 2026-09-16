@@ -741,6 +741,18 @@
   font-size: var(--fs-xs);
   color: var(--color-ink-faint);
 }
+.footer-bottom a,
+.footer-product-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--dur-fast), text-decoration-color var(--dur-fast);
+}
+.footer-bottom a:hover,
+.footer-product-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
