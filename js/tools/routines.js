@@ -6,6 +6,15 @@
 (function () {
   'use strict';
 
+  function createAdSlot() {
+    const wrap = document.createElement('div');
+    wrap.className = 'ad-slot ad-slot-wide ad-slot-break is-visible';
+    wrap.setAttribute('role', 'complementary');
+    wrap.setAttribute('aria-label', 'Advertisement');
+    wrap.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7098448277553816" data-ad-slot="7380709218" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+    return wrap;
+  }
+
   /* ------------------------------------------------------------------ */
   /* Routine catalog                                                     */
   /* Each routine's `stages` array is the *real*, fully expanded stage   */
@@ -231,22 +240,14 @@
       grid.appendChild(card);
 
       if (normFilter === 'all' && (idx === 2 || idx === 5)) {
-        const ad = document.createElement('div');
-        ad.className = 'ad-slot ad-slot-wide ad-slot-break is-visible';
-        ad.setAttribute('role', 'complementary');
-        ad.setAttribute('aria-label', 'Advertisement placeholder');
-        ad.textContent = 'Advertisement Space';
-        grid.appendChild(ad);
+        grid.appendChild(createAdSlot());
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
       }
     });
 
     if (filtered.length > 0) {
-      const adEnd = document.createElement('div');
-      adEnd.className = 'ad-slot ad-slot-wide ad-slot-break is-visible';
-      adEnd.setAttribute('role', 'complementary');
-      adEnd.setAttribute('aria-label', 'Advertisement placeholder');
-      adEnd.textContent = 'Advertisement Space';
-      grid.appendChild(adEnd);
+      grid.appendChild(createAdSlot());
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
     }
 
     if (window.TimerHubInitScrollReveal) {

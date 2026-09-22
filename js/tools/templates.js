@@ -85,13 +85,17 @@
     `);
     if (idx === 2 || idx === 5) {
       cardsHtml.push(`
-        <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+        <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7098448277553816" data-ad-slot="7380709218" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
       `);
     }
   });
   cardsHtml.push(`
-    <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement placeholder">Advertisement Space</div>
+    <div class="ad-slot ad-slot-wide ad-slot-break reveal" role="complementary" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7098448277553816" data-ad-slot="7380709218" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
   `);
 
   grid.innerHTML = cardsHtml.join('');
+
+  grid.querySelectorAll('ins.adsbygoogle').forEach(() => {
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  });
 })();

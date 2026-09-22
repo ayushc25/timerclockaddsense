@@ -684,6 +684,15 @@
   width: 100%;
   margin-block: var(--space-xs);
 }
+.ad-slot:has(.adsbygoogle) {
+  border-style: solid;
+  border-color: var(--color-border);
+  background: transparent;
+  padding: 0;
+}
+.ad-slot .adsbygoogle {
+  width: 100%;
+}
 @media (max-width: 768px) {
   .ad-slot {
     min-height: 75px;
