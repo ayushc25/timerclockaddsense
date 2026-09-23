@@ -374,6 +374,10 @@
 .blog-post-body { max-width: 720px; margin-inline: auto; }
 .blog-post-body p { margin-bottom: var(--space-md); }
 .blog-post-body h2 { margin-block: var(--space-xl) var(--space-sm); }
+.blog-post-body a { color: var(--color-accent); text-decoration: underline; }
+.blog-post-body ul, .blog-post-body ol { margin: 0 0 var(--space-md) var(--space-lg); padding-left: var(--space-md); list-style: revert; }
+.blog-post-body li { margin-bottom: var(--space-xs); }
+.blog-post-body blockquote { margin: 0 0 var(--space-md); padding-left: var(--space-md); border-left: 3px solid var(--color-accent); color: var(--color-ink-muted); font-style: italic; }
 
 /* ---------- Simple form (contact) ---------- */
 

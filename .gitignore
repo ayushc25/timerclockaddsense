@@ -41,6 +41,13 @@ out/
 .env.local
 .env.*.local
 
+# Admin panel runtime data (database + logs are created on the server itself
+# and contain the live password hash / post content — never committed).
+# The folder's .htaccess is the exception: it must ship, since it's what
+# blocks direct web access to everything else in here.
+admin/data/*
+!admin/data/.htaccess
+
 # Temporary / Scratch Files
 *.tmp
 *.temp
